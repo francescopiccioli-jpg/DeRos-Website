@@ -46,7 +46,7 @@ def header(current):
     visit_cur = ' aria-current="page"' if current == "visit.html" else ""
     drawer_links = "".join(f'<a href="{h}" data-it="{it}">{en}</a>' for h, en, it in NAV)
     return f"""{LOGO}
-<div class="draft"><div class="wrap">{t("Preview for the partners — illustrative photos (Unsplash), details in [brackets] to complete. Nothing on this page is sent anywhere.", "Anteprima per i soci — foto indicative (Unsplash), dati tra [parentesi quadre] da completare. Da questa pagina non viene inviato nulla.")}</div></div>
+<div class="draft"><div class="wrap">{t("Preview for the partners — photos of the restaurant, plus a few illustrative ones; details in [brackets] to complete.", "Anteprima per i soci — foto del ristorante e alcune indicative; dati tra [parentesi quadre] da completare.")}</div></div>
 <header class="top">
   <div class="wrap">
     <div class="nav-left">
@@ -64,7 +64,7 @@ def header(current):
 <div class="drawer" id="drawer" hidden>
   <div class="bar">{lang_group()}<button class="close" type="button" id="close-menu" data-it="Chiudi">Close</button></div>
   <nav aria-label="Main">{drawer_links}<a href="visit.html#book" data-it="Prenota un tavolo">Book a table</a><a href="visit.html" data-it="Dove siamo">Visit</a></nav>
-  <div class="facts"><span>Via Romagnosi 4, Milano · {t("Next to La Scala", "Accanto alla Scala")}</span><span>+39 02 366517680</span></div>
+  <div class="facts"><span>Via Romagnosi 4, Milano · {t("Next to La Scala", "Accanto alla Scala")}</span><span>+39 02 3651 7680</span></div>
 </div>"""
 
 FOOTER = f"""<footer>
@@ -76,7 +76,7 @@ FOOTER = f"""<footer>
       </div>
       <div><h4 data-it="Indirizzo">Address</h4>Via Romagnosi 4, 20121 Milano<br>{t("Metro M3 Montenapoleone, 250 m", "Metro M3 Montenapoleone, 250 m")}<br>{t("Parking: Autosilo San Fedele", "Parcheggio: Autosilo San Fedele")}</div>
       <div><h4 data-it="Orari">Opening hours</h4><div class="hours">{t("Every day", "Tutti i giorni")}<span></span>{t("Lunch", "Pranzo")}<span>12:00 – 15:00</span>{t("Dinner", "Cena")}<span>19:00 – 23:00</span></div></div>
-      <div><h4 data-it="Contatti">Contact</h4>+39 02 366517680<br>[info@derosmilano.it]<br>Instagram [@derosmilano]</div>
+      <div><h4 data-it="Contatti">Contact</h4>+39 02 3651 7680<br>[info@derosmilano.it]<br><a href="https://www.instagram.com/deros.ristorantemilano/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/deros.ristorante/" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.tiktok.com/@derosristorante" target="_blank" rel="noopener">TikTok</a></div>
     </div>
     <div class="legal">{t("[Company name] · VAT [number]", "[Ragione sociale] · P.IVA [numero]")}<a href="#" data-it="Privacy">Privacy policy</a><a href="#" data-it="Cookie">Cookie policy</a><span>© 2026 DeRos</span></div>
   </div>
@@ -84,12 +84,12 @@ FOOTER = f"""<footer>
 <div class="bookbar"><a class="btn btn-light" href="visit.html#book" data-it="Prenota un tavolo">Book a table</a></div>
 <script src="assets/site.js"></script>"""
 
-# Illustrative photos (Unsplash licence) for the partners' preview; replace with the restaurant's own.
-IMG = {"The dining room at night": ("hero", "Restaurant dining room in the evening"),
-       "Private room": ("private", "Table set for a private dinner"),
-       "Raw bar": ("rawbar", "Oysters on crushed ice"),
-       "The dining room": ("restaurant-head", "Restaurant dining room"),
-       "Private room set for dinner": ("events-head", "Long table set for an event"),
+# Restaurant photos from the previous site (rights to confirm before launch); chef, catch and street are still Unsplash.
+IMG = {"The dining room at night": ("hero", "The DeRos dining room with blue velvet banquettes"),
+       "Private room": ("private", "A blue velvet booth set for dinner"),
+       "Raw bar": ("rawbar", "Bluefin tuna, sliced raw"),
+       "The dining room": ("restaurant-head", "The DeRos dining room"),
+       "Private room set for dinner": ("events-head", "A velvet cushion embroidered with the DeRos logo"),
        "Street entrance": ("visit-head", "Piazza della Scala, Milan"),
        "Chef at the pass": ("chef-pass", "Chef plating a dish"),
        "The morning delivery": ("catch", "Fresh fish and shellfish on ice"),
@@ -116,6 +116,9 @@ def band(cls, ph_en, ph_it, inner, heading_id):
   <div class="shot">{shot}</div>
   <div class="copy"><div class="wrap">{inner}</div></div>
 </section>"""
+
+def m(en, it, price="€ —"):
+    return f'<li>{t(en, it, cls="name")}<span class="price">{price}</span></li>'
 
 def dish(name_en, name_it, desc_en, desc_it, confirm=False, price="€ —"):
     tag = f'<div class="tags">{t("To confirm with the kitchen", "Da confermare con la cucina", cls="tag confirm")}</div>' if confirm else ""
@@ -199,9 +202,9 @@ HOME = band("hero", "The dining room at night", "La sala di sera", f"""
   <div class="wrap">
     <div class="sec-head"><h2 id="dishes-title" data-it="I piatti firma">Signature dishes</h2><a class="text-link" href="menu.html" data-it="Il menu completo">The full menu</a></div>
     <div class="plates">
-      <article>{photo("Dish", "Piatto", "r-3-4", img="dish-lobster", alt="Lobster pasta")}<div class="row-price">{t("Lobster paccheri", "Paccheri all'astice", tag="h3")}<span class="price">€ —</span></div>{t("To confirm with the kitchen", "Da confermare con la cucina", tag="p", cls="ex")}</article>
-      <article>{photo("Dish", "Piatto", "r-3-4", img="dish-tuna", alt="Raw tuna served in a ceramic bowl")}<div class="row-price">{t("Bluefin tuna carpaccio, fresh wasabi", "Carpaccio di tonno rosso, wasabi fresco", tag="h3")}<span class="price">€ —</span></div>{t("To confirm with the kitchen", "Da confermare con la cucina", tag="p", cls="ex")}</article>
-      <article>{photo("Dish", "Piatto", "r-3-4", img="dish-risotto", alt="Seafood risotto")}<div class="row-price">{t("Langoustine risotto, spinach and lemon", "Risotto con scampi, spinaci e limone", tag="h3")}<span class="price">€ —</span></div>{t("To confirm with the kitchen", "Da confermare con la cucina", tag="p", cls="ex")}</article>
+      <article>{photo("Dish", "Piatto", "r-3-4", img="dish-tuna", alt="Bluefin tuna carpaccio")}<div class="row-price">{t("Bluefin tuna carpaccio, fresh wasabi", "Carpaccio di tonno rosso con wasabi fresco", tag="h3")}<span class="price">€ —</span></div></article>
+      <article>{photo("Dish", "Piatto", "r-3-4", img="dish-spaghetti", alt="Smoked spaghetti with clams")}<div class="row-price">{t("Smoked spaghetti, clams, grilled datterini tomatoes", "Spaghetti affumicati alle vongole e datterini grigliati", tag="h3")}<span class="price">€ —</span></div></article>
+      <article>{photo("Dish", "Piatto", "r-3-4", img="dish-triglia", alt="Red mullet tempura with artichokes")}<div class="row-price">{t("Red mullet tempura, Sardinian artichokes", "Triglia in tempura con carciofi sardi", tag="h3")}<span class="price">€ —</span></div></article>
     </div>
   </div>
 </section>
@@ -259,37 +262,55 @@ MENU = band("page-head", "Raw bar", "Banco dei crudi", f"""
   <h1 id="menu-title" data-it="Il menu">The menu</h1>
   <p data-it="Cambia con il pescato. Prezzi in euro, servizio incluso.">It changes with the catch. Prices in euros, service included.</p>""", "menu-title") + f"""
 <nav class="menu-nav" aria-label="Menu sections"><div class="wrap">
-  <a href="#raw" data-it="Crudi">Raw bar</a><a href="#starters" data-it="Antipasti">Starters</a><a href="#pasta" data-it="Primi">Pasta &amp; risotto</a><a href="#mains" data-it="Secondi">Mains</a><a href="#catch" data-it="Pescato">Daily catch</a><a href="#theatre" data-it="Pre-teatro">Pre-theatre</a><a href="#desserts" data-it="Dolci">Desserts</a><a href="#wine" data-it="Carta dei vini">Wine list</a>
+  <a href="#starters" data-it="Antipasti">Starters</a><a href="#raw" data-it="Crudi">Raw bar</a><a href="#pasta" data-it="Primi">Pasta &amp; risotto</a><a href="#mains" data-it="Secondi">Mains</a><a href="#catch" data-it="Pescato">Daily catch</a><a href="#theatre" data-it="Pre-teatro">Pre-theatre</a><a href="#desserts" data-it="Dolci">Desserts</a><a href="#wine" data-it="Carta dei vini">Wine list</a>
 </div></nav>
 <div class="wrap">
-  <section class="course" id="raw"><div class="intro"><h2 data-it="Crudi">Raw bar</h2><p data-it="Preparati al momento, mai in anticipo.">Prepared to order, never in advance.</p></div><ul class="dish-list">
-    {dish("Bluefin tuna carpaccio, fresh wasabi", "Carpaccio di tonno rosso, wasabi fresco", "[description]", "[descrizione]", True)}
-    {dish("Red prawns from Mazara, citrus", "Gamberi rossi di Mazara, agrumi", "[description]", "[descrizione]")}
-    {dish("Oysters, by the piece", "Ostriche, al pezzo", "[varieties of the day]", "[varietà del giorno]")}
-  </ul></section>
   <section class="course" id="starters"><div class="intro"><h2 data-it="Antipasti">Starters</h2></div><ul class="dish-list">
-    {dish("Roasted octopus, seasonal vegetables", "Polpo arrostito, verdure di stagione", "[description]", "[descrizione]", True)}
-    {dish("[Starter]", "[Antipasto]", "[description]", "[descrizione]")}
+    {m("Artichoke salad, celery, 36-month Parmigiano Reggiano", "Insalatina di carciofi sardi con sedano e parmigiano reggiano 36 mesi")}
+    {m("Creamed salt cod on Jerusalem artichoke cream", "Baccalà mantecato su crema di topinambur")}
+    {m("Warm seafood salad", "Tiepido di mare")}
+    {m("Fried baby squid", "Frittino di calamaretti spillo")}
+    {m("Seared octopus, vegetables and aioli", "Polpo scottato con verdure e aiolì")}
+    {m("Cantabrian anchovies, San Filippo reserve", "Acciughe del Mar Cantabrico riserva “San Filippo”")}
+    {m("Bluefin tuna carpaccio, fresh wasabi", "Carpaccio di tonno rosso con wasabi fresco")}
+    {m("Amberjack carpaccio, candied lemon, wasabi and yukari", "Carpaccio di ricciola con limone candito, wasabi e yukari")}
+  </ul></section>
+  <section class="course" id="raw"><div class="intro"><h2 data-it="Crudi">Raw bar</h2><p data-it="Preparati al momento, mai in anticipo.">Prepared to order, never in advance.</p></div><ul class="dish-list">
+    {m("Langoustines", "Scampi")}
+    {m("Prawns", "Gamberi")}
+    {m("Oysters", "Ostriche")}
+    {m("Sea urchins", "Ricci di mare")}
   </ul></section>
   <section class="course" id="pasta"><div class="intro"><h2 data-it="Primi">Pasta &amp; risotto</h2></div><ul class="dish-list">
-    {dish("Lobster paccheri", "Paccheri all'astice", "[description]", "[descrizione]", True)}
-    {dish("Langoustine risotto, spinach and lemon zest", "Risotto con scampi, spinaci e scorza di limone", "[description]", "[descrizione]", True)}
+    {m("King crab tortello, greens and mascarpone", "Tortello al king crab, erbette e mascarpone")}
+    {m("Risotto with spinach, grilled scallops and lemon zest", "Risotto con spinaci, capesante grigliate e zeste di limone")}
+    {m("Smoked spaghetti, clams, grilled datterini tomatoes", "Spaghetti affumicati alle vongole e pomodorini datterini grigliati")}
+    {m("Linguine alla Nerano, grilled baby squid", "Linguine alla Nerano e calamaretti grigliati")}
+    {m("Paccheri with lobster, tomato and basil", "Paccheri all'astice, pomodoro e basilico")}
+    {m("Calamarata with seafood", "Calamarata ai frutti di mare")}
   </ul></section>
   <section class="course" id="mains"><div class="intro"><h2 data-it="Secondi">Mains</h2></div><ul class="dish-list">
-    {dish("Catch of the day, baked in salt crust", "Pescato del giorno in crosta di sale", "For two, priced by weight", "Per due, a peso", price="€ — / 100 g")}
-    {dish("[Main]", "[Secondo]", "[description]", "[descrizione]")}
+    {m("Catch of the day", "Pescato del giorno", price="€ — / 100 g")}
+    {m("Seared bluefin tuna, grilled seasonal vegetables, crusco pepper sauce", "Tonno rosso scottato con verdure di stagione grigliate e salsa di peperone crusco")}
+    {m("Red mullet tempura, Sardinian artichoke hearts", "Triglia in tempura con cuore di carciofi sardi di stagione")}
+    {m("Turbot, Mediterranean style", "Rombo chiodato alla mediterranea")}
+    {m("Black cod and greens", "Black cod ed erbette")}
   </ul></section>
   <section class="course" id="catch"><div class="intro"><h2 data-it="Il pescato del giorno">Daily catch</h2><p data-it="Scegliete il pesce al tavolo. Prezzi all'etto.">Choose your fish at the table. Prices per 100 g.</p></div>{CATCH_TABLE}</section>
   <section class="course" id="theatre"><div class="intro"><h2 data-it="Menu pre-teatro">Pre-theatre menu</h2><p data-it="Dalle 19:00, all'apertura della cena: tre portate in un'ora. Proposta da confermare.">From 19:00, when dinner service opens: three courses within the hour. Proposal to confirm.</p></div><ul class="dish-list">
     {dish("Three courses and a glass of wine", "Tre portate e un calice di vino", "Crudo, a pasta or risotto, dessert, served within the hour.", "Crudo, un primo, un dolce, serviti in un'ora.", price="€ — p.p.")}
   </ul></section>
   <section class="course" id="desserts"><div class="intro"><h2 data-it="Dolci">Desserts</h2></div><ul class="dish-list">
-    {dish("[Dessert]", "[Dolce]", "[description]", "[descrizione]")}
+    {m("Tiramisù", "Tiramisù")}
+    {m("Seasonal fruit", "Frutta di stagione")}
+    {m("Tarte tatin, custard and vanilla ice cream", "Tarte tatin con crema inglese e gelato alla vaniglia")}
+    {m("Profiteroles with hot chocolate", "Profiterole con cioccolato caldo")}
+    {m("Babà with cream gelato", "Babà con gelato alla crema")}
   </ul></section>
   {WINE_SECTION}
   <div class="allergens">
     <p data-it="Allergeni: chiedete al personale l'elenco completo (Reg. UE 1169/2011). Alcuni prodotti possono essere abbattuti a temperatura negativa per la sicurezza alimentare.">Allergens: ask our staff for the full list (EU Reg. 1169/2011). Some products may be blast-frozen for food safety.</p>
-    <p data-it="I piatti segnati come da confermare provengono dalle recensioni della gestione precedente.">Dishes marked as to confirm come from reviews of the previous management.</p>
+    <p data-it="Piatti dal menu pubblicato sul sito precedente: prezzi da inserire.">Dishes from the menu published on the previous site: prices to be added.</p>
   </div>
 </div>"""
 
@@ -298,7 +319,8 @@ RESTAURANT = band("page-head", "The dining room", "La sala", f"""
   <h1 id="rest-title" data-it="Un ristorante di mare nel cuore di Milano.">A seafood restaurant in the heart of Milan.</h1>""", "rest-title") + f"""
 <section class="pad statement">
   <div class="wrap">
-    <blockquote data-it="DeRos nasce da un'idea semplice: il miglior pesce d'Italia merita un palcoscenico a Milano, accanto al suo teatro più famoso.">DeRos began with a simple idea: the best fish in Italy deserves a stage in Milan, next to its most famous theatre.</blockquote>
+    {t("Since 2016", "Dal 2016", tag="p", cls="label")}
+    <blockquote data-it="Dal 2016 DeRos porta il miglior pesce d'Italia a Milano, accanto al suo teatro più famoso. Autentico, raffinato, italiano.">Since 2016, DeRos has brought the best fish in Italy to Milan, next to its most famous theatre. Authentic, refined, Italian.</blockquote>
   </div>
 </section>
 <section class="pad on-surface" aria-labelledby="source-title">
@@ -351,7 +373,7 @@ EVENTS = band("page-head", "Private room set for dinner", "Sala privata apparecc
     <div class="text">
       <h2 id="enq-title" data-it="Richiedi una proposta">Request a proposal</h2>
       <p data-it="Rispondiamo entro 24 ore con menu, abbinamenti e preventivo.">We reply within 24 hours with menu, pairings and a quote.</p>
-      <div class="contact-alt"><span><strong>Email</strong> · [events@derosmilano.it]</span><span><strong data-it="Telefono">Phone</strong> · +39 02 366517680</span></div>
+      <div class="contact-alt"><span><strong>Email</strong> · [events@derosmilano.it]</span><span><strong data-it="Telefono">Phone</strong> · +39 02 3651 7680</span></div>
     </div>
     <form class="form" data-demo="event">
       <div class="fields">
@@ -376,27 +398,22 @@ VISIT = band("page-head", "Street entrance", "L'ingresso su strada", f"""
   <div class="wrap two">
     <div class="text">
       <h2 id="book-title" data-it="Prenota un tavolo">Book a table</h2>
-      <p data-it="Conferma immediata via email, nella tua lingua. Per gruppi oltre [N] persone, contattateci direttamente.">Instant confirmation by email, in your language. For parties larger than [N], contact us directly.</p>
+      <p data-it="Disponibilità in tempo reale e conferma immediata via email. Per gruppi oltre [N] persone, contattateci direttamente.">Live availability and instant confirmation by email. For parties larger than [N], contact us directly.</p>
       <div class="contact-alt">
-        <span class="copyable"><strong data-it="Telefono">Phone</strong> +39 02 366517680 <button class="copy-btn" type="button" data-copy="+39 02 366517680" data-it="Copia">Copy</button></span>
+        <span class="copyable"><strong data-it="Telefono">Phone</strong> +39 02 3651 7680 <button class="copy-btn" type="button" data-copy="+39 0236517680" data-it="Copia">Copy</button></span>
         <span class="copyable"><strong>WhatsApp</strong> [+39 …]</span>
         <span class="copyable"><strong>Email</strong> [info@derosmilano.it] <button class="copy-btn" type="button" data-copy="info@derosmilano.it" data-it="Copia">Copy</button></span>
       </div>
     </div>
-    <form class="form" data-demo="book">
-      <div class="fields">
-        <label for="f-date"><span data-it="Data">Date</span><input id="f-date" type="date"></label>
-        <label for="f-time"><span data-it="Ora">Time</span><select id="f-time"><option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option><option>14:00</option><option>19:00</option><option>19:30</option><option>20:00</option><option selected>20:30</option><option>21:00</option><option>21:30</option><option>22:00</option></select></label>
-        <label for="f-guests"><span data-it="Ospiti">Guests</span><select id="f-guests"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></label>
-      </div>
-      <button class="btn btn-solid" type="submit" data-it="Cerca un tavolo">Find a table</button>
-      <p class="msg" data-it="Segnaposto: qui va il widget della piattaforma scelta (SevenRooms o Plateform).">Placeholder: the widget of the chosen platform (SevenRooms or Plateform) goes here.</p>
-    </form>
+    <div class="book-cta">
+      <a class="btn btn-solid" href="visit.html#book" data-it="Scegli data e orario">Choose date and time</a>
+      <p class="note" data-it="La prenotazione si apre su SevenRooms, in una nuova scheda.">Booking opens on SevenRooms, in a new tab.</p>
+    </div>
   </div>
 </section>
 <section class="pad on-surface" aria-labelledby="where-title">
   <div class="wrap">
-    <div class="sec-head"><div>{t("Getting here", "Come arrivare", tag="p", cls="label")}<h2 id="where-title" data-it="Via Romagnosi 4, 20121 Milano">Via Romagnosi 4, 20121 Milan</h2></div><a class="text-link" href="https://www.google.com/maps/search/?api=1&query=De+Ros+Via+Romagnosi+4+Milano" target="_blank" rel="noopener" data-it="Apri in Google Maps">Open in Google Maps</a></div>
+    <div class="sec-head"><div>{t("Getting here", "Come arrivare", tag="p", cls="label")}<h2 id="where-title" data-it="Via Romagnosi 4, 20121 Milano">Via Romagnosi 4, 20121 Milan</h2></div><a class="text-link" href="https://maps.app.goo.gl/t5BjE6xVXBp1mNLd6" target="_blank" rel="noopener" data-it="Apri in Google Maps">Open in Google Maps</a></div>
     <div class="facts-grid">
       <div>{t("Metro", "Metro", tag="p", cls="label")}<p data-it="M3 Montenapoleone, 250 m a piedi">M3 Montenapoleone, 250 m on foot</p></div>
       <div>{t("Parking", "Parcheggio", tag="p", cls="label")}<p>Autosilo San Fedele</p></div>
@@ -407,7 +424,7 @@ VISIT = band("page-head", "Street entrance", "L'ingresso su strada", f"""
 
 PAGES = [
     ("index.html", "DeRos Restaurant", "Seafood restaurant in Milan at Via Romagnosi 4, next to La Scala and a few minutes' walk from Via Montenapoleone. Raw bar, daily catch, Italian wines.", HOME),
-    ("menu.html", "Menu · DeRos", "The DeRos menu: raw bar, pasta, daily catch priced by weight, pre-theatre menu. Seafood in central Milan, near La Scala and Via Montenapoleone.", MENU),
+    ("menu.html", "Menu · DeRos", "The DeRos menu: raw bar, crudo, pasta, daily catch priced by weight, pre-theatre menu. Seafood in central Milan, near La Scala and Via Montenapoleone.", MENU),
     ("restaurant.html", "Restaurant · DeRos", "DeRos, a seafood restaurant between Piazza della Scala and the Montenapoleone fashion district: our story, sourcing and chef.", RESTAURANT),
     ("private-dining.html", "Private dining · DeRos", "Private dinners and corporate events at DeRos, Milan, near La Scala and Via Montenapoleone.", EVENTS),
     ("visit.html", "Visit · DeRos", "Book a table at DeRos, Via Romagnosi 4, Milan: next to La Scala, metro M3 Montenapoleone 250 m.", VISIT),
@@ -431,7 +448,7 @@ for name in ("site.css", "site.js"):
     open(os.path.join(OUT, "assets", name), "w").write(open(os.path.join(SRC, name)).read())
 for fname, title, desc, main in PAGES:
     body = header(fname) + f'\n<main id="main">\n{main}\n</main>\n' + FOOTER
-    body = add_ru(body)
+    body = add_ru(body).replace('href="visit.html#book"', 'href="https://www.sevenrooms.com/reservations/ristorantederos" target="_blank" rel="noopener"')
     full = f'<!doctype html>\n<html lang="en">\n<head>\n{head(title, desc)}\n</head>\n<body>\n{body}\n</body>\n</html>\n'
     open(os.path.join(OUT, fname), "w").write(full)
     if fname == "index.html":
