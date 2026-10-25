@@ -78,7 +78,9 @@ header.top .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-ite
 .menu-toggle { background: none; border: 0; color: var(--on-night); font: inherit; letter-spacing: 0.16em; cursor: pointer; padding: 12px 4px; display: inline-flex; align-items: center; gap: 10px; text-transform: uppercase; }
 .menu-toggle .bars { width: 20px; height: 9px; border-block: 1px solid currentColor; display: inline-block; }
 .lang { display: flex; gap: 2px; font-size: 12px; letter-spacing: 0.12em; }
-.lang button { font: inherit; background: none; border: 0; color: var(--on-night-muted); padding: 8px 6px; cursor: pointer; }
+.lang button { font: inherit; background: none; border: 0; color: var(--on-night-muted); padding: 8px 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+.lang .flag { width: 18px; height: 12px; border-radius: 2px; flex: none; box-shadow: 0 0 0 1px rgba(243,243,248,0.25); opacity: 0.7; }
+.lang button[aria-pressed="true"] .flag { opacity: 1; }
 .lang button[aria-pressed="true"] { color: var(--on-night); text-decoration: underline; text-underline-offset: 5px; }
 .lang button:disabled { opacity: 0.45; cursor: not-allowed; }
 header .btn { padding: 12px 18px; min-height: 40px; font-size: 12px; white-space: nowrap; }

@@ -23,16 +23,23 @@ def head(title, desc):
 <meta name="claude:viewport-fit-sides" content="cover">
 <title>{title}</title>
 <meta name="description" content="{html.escape(desc)}">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{html.escape(desc)}">
+<meta property="og:type" content="restaurant">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Spectral:wght@300;400&display=swap">
 <link rel="stylesheet" href="assets/site.css">"""
 
+FLAG_EN = '<svg class="flag" viewBox="0 0 60 30" aria-hidden="true"><g><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" stroke="#C8102E" stroke-width="2.4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg>'
+FLAG_IT = '<svg class="flag" viewBox="0 0 3 2" aria-hidden="true"><path fill="#009246" d="M0 0h1v2H0z"/><path fill="#F1F2F1" d="M1 0h1v2H1z"/><path fill="#CE2B37" d="M2 0h1v2H2z"/></svg>'
+FLAG_RU = '<svg class="flag" viewBox="0 0 3 2" aria-hidden="true"><path fill="#FFFFFF" d="M0 0h3v.667H0z"/><path fill="#0039A6" d="M0 .667h3v.667H0z"/><path fill="#D52B1E" d="M0 1.333h3V2H0z"/></svg>'
+
 def lang_group():
-    return """<div class="lang" role="group" aria-label="Language">
-        <button type="button" data-lang="en" aria-pressed="true">EN</button>
-        <button type="button" data-lang="it" aria-pressed="false">IT</button>
-        <button type="button" data-lang="ru" aria-pressed="false">RU</button>
+    return f"""<div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">{FLAG_EN}EN</button>
+        <button type="button" data-lang="it" aria-pressed="false">{FLAG_IT}IT</button>
+        <button type="button" data-lang="ru" aria-pressed="false">{FLAG_RU}RU</button>
       </div>"""
 
 NAV_RU = {"Private dining": ' data-ru="Мероприятия"'}
@@ -69,7 +76,7 @@ FOOTER = f"""<footer>
     <div class="cols">
       <div style="display:grid;gap:16px;align-content:start">
         <span class="mark"><svg role="img" aria-label="DeRos Restaurant"><use href="#logo"/></svg></span>
-        {t("Seafood restaurant a few steps from La Scala.", "Ristorante di pesce a pochi passi dalla Scala.")}
+        {t("Seafood restaurant next to La Scala, a few minutes from Via Montenapoleone.", "Ristorante di pesce accanto alla Scala, a pochi minuti da via Montenapoleone.")}
       </div>
       <div><h4 data-it="Indirizzo">Address</h4>Via Romagnosi 4, 20121 Milano<br>{t("Metro M3 Montenapoleone, 250 m", "Metro M3 Montenapoleone, 250 m")}<br>{t("Parking: Autosilo San Fedele", "Parcheggio: Autosilo San Fedele")}</div>
       <div><h4 data-it="Orari">Opening hours</h4><div class="hours">{t("Every day", "Tutti i giorni")}<span></span>{t("Lunch", "Pranzo")}<span>12:00 – 15:00</span>{t("Dinner", "Cena")}<span>19:00 – 23:00</span></div></div>
@@ -403,11 +410,11 @@ VISIT = band("page-head", "Street entrance", "L'ingresso su strada", f"""
 </section>"""
 
 PAGES = [
-    ("index.html", "DeRos Restaurant", "Seafood restaurant in Milan, a few steps from La Scala.", HOME),
-    ("menu.html", "Menu · DeRos", "The DeRos menu: raw bar, pasta, daily catch priced by weight, pre-theatre menu.", MENU),
-    ("restaurant.html", "Restaurant · DeRos", "The DeRos story, sourcing and chef.", RESTAURANT),
-    ("private-dining.html", "Private dining · DeRos", "Private dinners and corporate events at DeRos, Milan.", EVENTS),
-    ("visit.html", "Visit · DeRos", "Book a table and find DeRos, next to La Scala in Milan.", VISIT),
+    ("index.html", "DeRos Restaurant", "Seafood restaurant in Milan at Via Romagnosi 4, next to La Scala and a few minutes' walk from Via Montenapoleone. Raw bar, daily catch, Italian wines.", HOME),
+    ("menu.html", "Menu · DeRos", "The DeRos menu: raw bar, pasta, daily catch priced by weight, pre-theatre menu. Seafood in central Milan, near La Scala and Via Montenapoleone.", MENU),
+    ("restaurant.html", "Restaurant · DeRos", "DeRos, a seafood restaurant between Piazza della Scala and the Montenapoleone fashion district: our story, sourcing and chef.", RESTAURANT),
+    ("private-dining.html", "Private dining · DeRos", "Private dinners and corporate events at DeRos, Milan, near La Scala and Via Montenapoleone.", EVENTS),
+    ("visit.html", "Visit · DeRos", "Book a table at DeRos, Via Romagnosi 4, Milan: next to La Scala, metro M3 Montenapoleone 250 m.", VISIT),
 ]
 
 from ru import RU

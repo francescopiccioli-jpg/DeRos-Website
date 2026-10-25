@@ -59,7 +59,7 @@ RU = {
 "Chef [Name]": "Шеф [Имя]",
 "[X] years in [restaurants / experiences], now cooking a menu that changes with what the boats bring in.": "[X] лет в [ресторанах / проектах]; сегодня его меню меняется вместе с уловом.",
 "Our story": "Наша история",
-"Seafood restaurant a few steps from La Scala.": "Рыбный ресторан в нескольких шагах от Ла Скала.",
+"Seafood restaurant next to La Scala, a few minutes from Via Montenapoleone.": "Рыбный ресторан рядом с Ла Скала, в нескольких минутах от Виа Монтенаполеоне.",
 "Address": "Адрес",
 "Metro M3 Montenapoleone, 250 m": "Метро M3 Montenapoleone, 250 м",
 "Parking: Autosilo San Fedele": "Парковка: Autosilo San Fedele",
