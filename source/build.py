@@ -170,7 +170,7 @@ def shows_block():
 SHOWS_BLOCK = shows_block()
 
 
-GALLERY_ORDER = [3,16,12,21,1,29,6,19,14,24,2,28,4,20,35,22,5,30,11,18,23,31,33,26,27,34]
+GALLERY_ORDER = [3,16,12,21,1,29,5,19,14,24,2,30,35,11]
 _ALT = {"room": (1,2,3,4,5,6), "tuna": (16,18,19,20), "wine": (11,12,14,35), "pasta": (21,22,23,24,26,27,34), "mullet": (28,29,30,31,33)}
 _ALT_TXT = {"room": "The DeRos dining room", "tuna": "Bluefin tuna carpaccio", "wine": "Wine service", "pasta": "Smoked spaghetti with clams", "mullet": "Red mullet tempura with artichokes"}
 def gallery_block():
