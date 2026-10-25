@@ -49,8 +49,17 @@
   document.querySelectorAll(".lang button[data-lang]").forEach(function (b) {
     b.addEventListener("click", function () { setLang(b.dataset.lang); });
   });
-  var start = "en";
-  try { start = localStorage.getItem("deros-lang") || "en"; } catch (e) {}
+  // First visit: follow the browser language (Italian, Russian, otherwise English); later visits keep the visitor's choice.
+  var start = null;
+  try { start = localStorage.getItem("deros-lang"); } catch (e) {}
+  if (!start) {
+    var prefs = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || "en"]);
+    start = "en";
+    for (var i = 0; i < prefs.length; i++) {
+      var code = String(prefs[i]).slice(0, 2).toLowerCase();
+      if (code === "it" || code === "ru" || code === "en") { start = code; break; }
+    }
+  }
   setLang(start);
 
   // Mobile menu

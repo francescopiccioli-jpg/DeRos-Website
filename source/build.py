@@ -31,15 +31,11 @@ def head(title, desc):
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Spectral:wght@300;400&display=swap">
 <link rel="stylesheet" href="assets/site.css">"""
 
-FLAG_EN = '<svg class="flag" viewBox="0 0 60 30" aria-hidden="true"><g><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" stroke="#C8102E" stroke-width="2.4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg>'
-FLAG_IT = '<svg class="flag" viewBox="0 0 3 2" aria-hidden="true"><path fill="#009246" d="M0 0h1v2H0z"/><path fill="#F1F2F1" d="M1 0h1v2H1z"/><path fill="#CE2B37" d="M2 0h1v2H2z"/></svg>'
-FLAG_RU = '<svg class="flag" viewBox="0 0 3 2" aria-hidden="true"><path fill="#FFFFFF" d="M0 0h3v.667H0z"/><path fill="#0039A6" d="M0 .667h3v.667H0z"/><path fill="#D52B1E" d="M0 1.333h3V2H0z"/></svg>'
-
 def lang_group():
     return f"""<div class="lang" role="group" aria-label="Language">
-        <button type="button" data-lang="en" aria-pressed="true">{FLAG_EN}EN</button>
-        <button type="button" data-lang="it" aria-pressed="false">{FLAG_IT}IT</button>
-        <button type="button" data-lang="ru" aria-pressed="false">{FLAG_RU}RU</button>
+        <button type="button" data-lang="en" lang="en" aria-pressed="true" aria-label="English" title="English">EN</button>
+        <button type="button" data-lang="it" lang="it" aria-pressed="false" aria-label="Italiano" title="Italiano">IT</button>
+        <button type="button" data-lang="ru" lang="ru" aria-pressed="false" aria-label="Русский" title="Русский">RU</button>
       </div>"""
 
 NAV_RU = {"Private dining": ' data-ru="Мероприятия"'}
@@ -60,7 +56,7 @@ def header(current):
     <a class="mark" href="./" aria-label="DeRos, home"><svg role="img" aria-label="DeRos Restaurant"><use href="#logo"/></svg></a>
     <div class="nav-right">
       <a class="desk plain" href="visit.html"{visit_cur} data-it="Dove siamo" data-ru="Контакты">Visit</a>
-      <span class="desk">{lang_group()}</span>
+      {lang_group()}
       <a class="btn btn-light" href="visit.html#book" data-it="Prenota" data-ru="Забронировать">Book a table</a>
     </div>
   </div>
