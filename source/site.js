@@ -91,6 +91,44 @@
     });
   });
 
+
+  // Gallery: horizontal strip with arrows, slow auto-advance (paused on interaction or reduced motion), lightbox
+  var gal = document.querySelector(".gallery");
+  if (gal) {
+    var items = Array.prototype.slice.call(gal.querySelectorAll("li"));
+    var step = function (dir) {
+      var x = gal.scrollLeft, target = null;
+      for (var i = 0; i < items.length; i++) {
+        var off = items[i].offsetLeft - items[0].offsetLeft;
+        if (dir > 0 && off > x + 4) { target = off; break; }
+        if (dir < 0 && off < x - 4) target = off;
+      }
+      if (target === null) target = dir > 0 ? 0 : gal.scrollWidth;
+      gal.scrollTo({ left: target, behavior: "smooth" });
+    };
+    var sec = gal.closest("section");
+    sec.querySelector(".g-prev").addEventListener("click", function () { stop(); step(-1); });
+    sec.querySelector(".g-next").addEventListener("click", function () { stop(); step(1); });
+    gal.addEventListener("keydown", function (e) { if (e.key === "ArrowRight") { e.preventDefault(); stop(); step(1); } if (e.key === "ArrowLeft") { e.preventDefault(); stop(); step(-1); } });
+    var timer = null, reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    function start() { if (!reduce && !timer) timer = setInterval(function () { if (!document.hidden) step(1); }, 4500); }
+    ["pointerdown", "wheel", "touchstart", "focusin"].forEach(function (ev) { gal.addEventListener(ev, stop, { passive: true }); });
+    gal.addEventListener("mouseenter", stop); gal.addEventListener("mouseleave", function () { if (!gal.contains(document.activeElement)) start(); });
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { es[0].isIntersecting ? start() : stop(); }, { threshold: 0.4 }).observe(gal);
+    var lb = sec.querySelector(".lightbox"), lbImg = lb && lb.querySelector("img"), btns = Array.prototype.slice.call(gal.querySelectorAll(".g-open")), cur = 0;
+    function show(i) { cur = (i + btns.length) % btns.length; lbImg.src = btns[cur].dataset.full; lbImg.alt = btns[cur].getAttribute("aria-label"); }
+    if (lb && lb.showModal) {
+      btns.forEach(function (b, i) { b.addEventListener("click", function () { stop(); show(i); lb.showModal(); }); });
+      lb.querySelector(".lb-close").addEventListener("click", function () { lb.close(); });
+      lb.querySelector(".lb-prev").addEventListener("click", function () { show(cur - 1); });
+      lb.querySelector(".lb-next").addEventListener("click", function () { show(cur + 1); });
+      lb.addEventListener("click", function (e) { if (e.target === lb) lb.close(); });
+      lb.addEventListener("keydown", function (e) { if (e.key === "ArrowRight") show(cur + 1); if (e.key === "ArrowLeft") show(cur - 1); });
+      lb.addEventListener("close", function () { btns[cur].focus({ preventScroll: true }); });
+    }
+  }
+
   // Copy buttons for phone and email
   document.querySelectorAll(".copy-btn").forEach(function (b) {
     b.addEventListener("click", function () {

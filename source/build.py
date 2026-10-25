@@ -169,6 +169,27 @@ def shows_block():
 
 SHOWS_BLOCK = shows_block()
 
+
+GALLERY_ORDER = [3,16,12,21,1,29,6,19,14,24,2,28,4,20,35,22,5,30,11,18,23,31,33,26,27,34]
+_ALT = {"room": (1,2,3,4,5,6), "tuna": (16,18,19,20), "wine": (11,12,14,35), "pasta": (21,22,23,24,26,27,34), "mullet": (28,29,30,31,33)}
+_ALT_TXT = {"room": "The DeRos dining room", "tuna": "Bluefin tuna carpaccio", "wine": "Wine service", "pasta": "Smoked spaghetti with clams", "mullet": "Red mullet tempura with artichokes"}
+def gallery_block():
+    items = []
+    for i, n in enumerate(GALLERY_ORDER):
+        kind = next(k for k, v in _ALT.items() if n in v)
+        wide = ' class="wide"' if n == 33 else ''
+        items.append(f'<li{wide}><button type="button" class="g-open" data-full="assets/img/gallery/g{n}.webp" aria-label="{_ALT_TXT[kind]}"><img src="assets/img/gallery/g{n}.webp" alt="{_ALT_TXT[kind]}" loading="lazy" decoding="async"></button></li>')
+    return f"""<section class="pad gallery-sec" aria-labelledby="gallery-title">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="gallery-title" data-it="La sala e la cucina">The room and the kitchen</h2>
+      <div class="g-nav"><button type="button" class="g-prev" aria-label="Previous">‹</button><button type="button" class="g-next" aria-label="Next">›</button></div></div>
+  </div>
+  <div class="gallery" tabindex="0" aria-label="Photo gallery"><ul>{"".join(items)}</ul></div>
+  <dialog class="lightbox" aria-label="Photo"><img alt=""><button type="button" class="lb-close" aria-label="Close" data-it="Chiudi">Close</button><button type="button" class="lb-prev" aria-label="Previous">‹</button><button type="button" class="lb-next" aria-label="Next">›</button></dialog>
+</section>
+"""
+GALLERY = gallery_block()
+
 HOME = band("hero", "The dining room at night", "La sala di sera", f"""
   {t("Seafood · Milan · Next to La Scala", "Pesce · Milano · Accanto alla Scala", tag="p", cls="label")}
   <h1 id="hero-title" data-it="Il meglio dei mari italiani.">The finest catch of the Italian coasts.</h1>
@@ -185,7 +206,17 @@ HOME = band("hero", "The dining room at night", "La sala di sera", f"""
   </div>
 </section>
 <p class="wrap rating"><a href="https://www.tripadvisor.com/Restaurant_Review-g187849-d11951685-Reviews-DeRos-Milan_Lombardy.html" target="_blank" rel="noopener">{t("4.4 out of 5 on Tripadvisor · 256 reviews", "4,4 su 5 su Tripadvisor · 256 recensioni")}</a></p>
-<section class="pad on-surface" aria-labelledby="scala-title">
+<section class="pad" aria-labelledby="dishes-title">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="dishes-title" data-it="I piatti firma">Signature dishes</h2><a class="text-link" href="menu.html" data-it="Il menu completo">The full menu</a></div>
+    <div class="plates">
+      <article>{photo("Dish", "Piatto", "r-3-4", img="dish-tuna", alt="Bluefin tuna carpaccio")}{t("Bluefin tuna carpaccio, fresh wasabi", "Carpaccio di tonno rosso con wasabi fresco", tag="h3")}</article>
+      <article>{photo("Dish", "Piatto", "r-3-4", img="dish-spaghetti", alt="Smoked spaghetti with clams")}{t("Smoked spaghetti, clams, grilled datterini tomatoes", "Spaghetti affumicati alle vongole e datterini grigliati", tag="h3")}</article>
+      <article>{photo("Dish", "Piatto", "r-3-4", img="dish-triglia", alt="Red mullet tempura with artichokes")}{t("Red mullet tempura, Sardinian artichokes", "Triglia in tempura con carciofi sardi", tag="h3")}</article>
+    </div>
+  </div>
+</section>
+""" + GALLERY + f"""<section class="pad on-surface" aria-labelledby="scala-title">
   <div class="wrap scala">
     <div class="text">
       {t("Before and after the opera", "Prima e dopo l'opera", tag="p", cls="label")}
@@ -196,16 +227,6 @@ HOME = band("hero", "The dining room at night", "La sala di sera", f"""
       {t("Proposal: to confirm with the restaurant", "Proposta: da confermare con il ristorante", tag="p", cls="ex")}
     </div>
     {SHOWS_BLOCK}
-  </div>
-</section>
-<section class="pad" aria-labelledby="dishes-title">
-  <div class="wrap">
-    <div class="sec-head"><h2 id="dishes-title" data-it="I piatti firma">Signature dishes</h2><a class="text-link" href="menu.html" data-it="Il menu completo">The full menu</a></div>
-    <div class="plates">
-      <article>{photo("Dish", "Piatto", "r-3-4", img="dish-tuna", alt="Bluefin tuna carpaccio")}<div class="row-price">{t("Bluefin tuna carpaccio, fresh wasabi", "Carpaccio di tonno rosso con wasabi fresco", tag="h3")}<span class="price">€ —</span></div></article>
-      <article>{photo("Dish", "Piatto", "r-3-4", img="dish-spaghetti", alt="Smoked spaghetti with clams")}<div class="row-price">{t("Smoked spaghetti, clams, grilled datterini tomatoes", "Spaghetti affumicati alle vongole e datterini grigliati", tag="h3")}<span class="price">€ —</span></div></article>
-      <article>{photo("Dish", "Piatto", "r-3-4", img="dish-triglia", alt="Red mullet tempura with artichokes")}<div class="row-price">{t("Red mullet tempura, Sardinian artichokes", "Triglia in tempura con carciofi sardi", tag="h3")}<span class="price">€ —</span></div></article>
-    </div>
   </div>
 </section>
 <section class="pad on-surface" aria-labelledby="catch-title">

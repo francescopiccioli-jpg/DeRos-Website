@@ -217,3 +217,4 @@ RU.update({
 "Booking opens on SevenRooms, in a new tab.": "Бронирование откроется на SevenRooms в новой вкладке.",
 "Live availability and instant confirmation by email. For parties larger than [N], contact us directly.": "Свободные столики в реальном времени и мгновенное подтверждение по email. Для групп больше [N] человек свяжитесь с нами напрямую.",
 })
+RU.update({"The room and the kitchen": "Зал и кухня", "Close": "Закрыть"})
