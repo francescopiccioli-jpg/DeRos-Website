@@ -278,3 +278,18 @@ footer .legal { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 13px; 
 .lightbox .lb-close { top: 16px; right: 16px; width: auto; padding: 0 16px; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
 .lightbox .lb-prev { left: 16px; top: 50%; } .lightbox .lb-next { right: 16px; top: 50%; }
 @media (prefers-reduced-motion: reduce) { .g-open img { transition: none; } }
+
+/* Menu page: allergens, desserts with pairings, PDF downloads */
+.dish-list .al { font-family: var(--f-body, inherit); font-size: 12px; letter-spacing: .04em; color: var(--tide, #2C5A70); white-space: nowrap; }
+.dessert-block + .dessert-block { margin-top: 36px; }
+.pair-label { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--tide, #2C5A70); margin: 18px 0 0; }
+.dish-list.pairs li:first-child { border-top-color: var(--line); }
+.dish-list.pairs li { padding-left: 20px; }
+.dish-list.pairs .name { font-size: 18px; }
+.allergen-list { display: grid; gap: 18px; color: var(--muted); font-size: 15px; }
+.allergen-list ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+@media (min-width: 700px) { .allergen-list ol { grid-template-columns: 1fr 1fr; column-gap: 32px; } }
+.allergen-list li { display: grid; grid-template-columns: 28px 1fr; }
+.allergen-list b { color: var(--fg); font-weight: 600; }
+.pdf-links { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; padding: 28px 0 0; }
+.pdf-links a { font-size: 14px; letter-spacing: .06em; color: inherit; text-underline-offset: 4px; }

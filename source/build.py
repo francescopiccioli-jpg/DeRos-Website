@@ -278,61 +278,51 @@ def wine_section():
 RU_EXTRA = {}
 WINE_SECTION = wine_section()
 
+import menu_data as MD
+def tr(en, it, ru, tag="span", cls=""):
+    if ru: RU_EXTRA[en] = ru
+    return t(en, it, tag, cls)
+def _al(code):
+    return f' <span class="al">({code})</span>' if code else ""
+def mi(i):
+    desc = tr(i["den"], i["dit"] or i["den"], i["dru"], cls="desc") if (i["den"] or i["dit"]) else ""
+    pr = tr(MD.price(i["price"], "en", i["unit"]), MD.price(i["price"], "it", i["unit"]), MD.price(i["price"], "ru", i["unit"]), cls="price")
+    return f'<li><span class="name">{tr(i["en"], i["it"], i["ru"])}{_al(i["al"])}</span>{pr}{desc}</li>'
+def course(cid, title, items, intro=""):
+    return f'<section class="course" id="{cid}"><div class="intro">{tr(title["en"], title["it"], title["ru"], tag="h2")}{intro}</div><ul class="dish-list">{"".join(mi(i) for i in items)}</ul></section>'
+def desserts():
+    out = []
+    for d, pairs in MD.DESSERTS:
+        pl = "".join(mi(p) for p in pairs)
+        out.append(f'<div class="dessert-block"><ul class="dish-list">{mi(d)}</ul>{tr(MD.PAIRINGS["en"], MD.PAIRINGS["it"], MD.PAIRINGS["ru"], tag="p", cls="pair-label")}<ul class="dish-list pairs">{pl}</ul></div>')
+    T = MD.DESSERT_TITLE
+    return f'<section class="course" id="desserts"><div class="intro">{tr(T["en"], T["it"], T["ru"], tag="h2")}</div><div>{"".join(out)}</div></section>'
+def allergen_block():
+    li = "".join(f'<li><b>{k}</b>{tr(a[1], a[0], a[2])}</li>' for k, a in enumerate(MD.ALLERGENS, 1))
+    L = MD
+    return f"""<section class="course" id="allergens"><div class="intro">{tr(L.ALLERGEN_TITLE["en"], L.ALLERGEN_TITLE["it"], L.ALLERGEN_TITLE["ru"], tag="h2")}{tr(L.ALLERGEN_NOTE["en"], L.ALLERGEN_NOTE["it"], L.ALLERGEN_NOTE["ru"], tag="p")}</div>
+    <div class="allergen-list">{tr(L.ALLERGEN_LEGAL["en"], L.ALLERGEN_LEGAL["it"], L.ALLERGEN_LEGAL["ru"], tag="p")}<ol>{li}</ol>{tr(L.ALLERGEN_ASK["en"], L.ALLERGEN_ASK["it"], L.ALLERGEN_ASK["ru"], tag="p")}</div></section>"""
+
+PDF_LINKS = f"""<div class="pdf-links">{tr("Download the menu", "Scarica il menu", "Скачать меню", cls="label")}
+  <a href="assets/menu/menu-deros-it.pdf" download>Italiano · PDF</a><a href="assets/menu/menu-deros-en.pdf" download>English · PDF</a><a href="assets/menu/menu-deros-ru.pdf" download>Русский · PDF</a></div>"""
+
 MENU = band("page-head", "Raw bar", "Banco dei crudi", f"""
   {t("Menu", "Menu", tag="p", cls="label")}
-  <h1 id="menu-title" data-it="Il menu">The menu</h1>
-  <p data-it="Cambia con il pescato. Prezzi in euro, servizio incluso.">It changes with the catch. Prices in euros, service included.</p>""", "menu-title") + f"""
+  <h1 id="menu-title" data-it="Il nostro menu">Our menu</h1>
+  {tr(MD.INTRO["en"], MD.INTRO["it"], MD.INTRO["ru"], tag="p")}""", "menu-title") + f"""
 <nav class="menu-nav" aria-label="Menu sections"><div class="wrap">
-  <a href="#starters" data-it="Antipasti">Starters</a><a href="#raw" data-it="Crudi">Raw bar</a><a href="#pasta" data-it="Primi">Pasta &amp; risotto</a><a href="#mains" data-it="Secondi">Mains</a><a href="#catch" data-it="Pescato">Daily catch</a><a href="#theatre" data-it="Pre-teatro">Pre-theatre</a><a href="#desserts" data-it="Dolci">Desserts</a><a href="#wine" data-it="Carta dei vini">Wine list</a>
+  <a href="#raw" data-it="Cruderìa">Raw bar</a><a href="#starters" data-it="Antipasti">Starters</a><a href="#pasta" data-it="Primi">First courses</a><a href="#mains" data-it="Secondi">Mains</a><a href="#desserts" data-it="Dolci">Desserts</a><a href="#drinks" data-it="Bevande">Beverages</a><a href="#theatre" data-it="Pre-teatro">Pre-theatre</a><a href="#wine" data-it="Carta dei vini">Wine list</a><a href="#allergens" data-it="Allergeni">Allergens</a>
 </div></nav>
 <div class="wrap">
-  <section class="course" id="starters"><div class="intro"><h2 data-it="Antipasti">Starters</h2></div><ul class="dish-list">
-    {m("Artichoke salad, celery, 36-month Parmigiano Reggiano", "Insalatina di carciofi sardi con sedano e parmigiano reggiano 36 mesi")}
-    {m("Creamed salt cod on Jerusalem artichoke cream", "Baccalà mantecato su crema di topinambur")}
-    {m("Warm seafood salad", "Tiepido di mare")}
-    {m("Fried baby squid", "Frittino di calamaretti spillo")}
-    {m("Seared octopus, vegetables and aioli", "Polpo scottato con verdure e aiolì")}
-    {m("Cantabrian anchovies, San Filippo reserve", "Acciughe del Mar Cantabrico riserva “San Filippo”")}
-    {m("Bluefin tuna carpaccio, fresh wasabi", "Carpaccio di tonno rosso con wasabi fresco")}
-    {m("Amberjack carpaccio, candied lemon, wasabi and yukari", "Carpaccio di ricciola con limone candito, wasabi e yukari")}
-  </ul></section>
-  <section class="course" id="raw"><div class="intro"><h2 data-it="Crudi">Raw bar</h2><p data-it="Preparati al momento, mai in anticipo.">Prepared to order, never in advance.</p></div><ul class="dish-list">
-    {m("Langoustines", "Scampi")}
-    {m("Prawns", "Gamberi")}
-    {m("Oysters", "Ostriche")}
-    {m("Sea urchins", "Ricci di mare")}
-  </ul></section>
-  <section class="course" id="pasta"><div class="intro"><h2 data-it="Primi">Pasta &amp; risotto</h2></div><ul class="dish-list">
-    {m("King crab tortello, greens and mascarpone", "Tortello al king crab, erbette e mascarpone")}
-    {m("Risotto with spinach, grilled scallops and lemon zest", "Risotto con spinaci, capesante grigliate e zeste di limone")}
-    {m("Smoked spaghetti, clams, grilled datterini tomatoes", "Spaghetti affumicati alle vongole e pomodorini datterini grigliati")}
-    {m("Linguine alla Nerano, grilled baby squid", "Linguine alla Nerano e calamaretti grigliati")}
-    {m("Paccheri with lobster, tomato and basil", "Paccheri all'astice, pomodoro e basilico")}
-    {m("Calamarata with seafood", "Calamarata ai frutti di mare")}
-  </ul></section>
-  <section class="course" id="mains"><div class="intro"><h2 data-it="Secondi">Mains</h2></div><ul class="dish-list">
-    {m("Catch of the day", "Pescato del giorno", price="€ — / 100 g")}
-    {m("Seared bluefin tuna, grilled seasonal vegetables, crusco pepper sauce", "Tonno rosso scottato con verdure di stagione grigliate e salsa di peperone crusco")}
-    {m("Red mullet tempura, Sardinian artichoke hearts", "Triglia in tempura con cuore di carciofi sardi di stagione")}
-    {m("Turbot, Mediterranean style", "Rombo chiodato alla mediterranea")}
-    {m("Black cod and greens", "Black cod ed erbette")}
-  </ul></section>
-  <section class="course" id="catch"><div class="intro"><h2 data-it="Il pescato del giorno">Daily catch</h2><p data-it="Scegliete il pesce al tavolo. Prezzi all'etto.">Choose your fish at the table. Prices per 100 g.</p></div>{CATCH_TABLE}</section>
+  {PDF_LINKS}
+  {"".join(course(k, title, items) for k, title, items in MD.FOOD)}
+  {desserts()}
+  {course(MD.DRINKS[0], MD.DRINKS[1], MD.DRINKS[2])}
   <section class="course" id="theatre"><div class="intro"><h2 data-it="Menu pre-teatro">Pre-theatre menu</h2><p data-it="Dalle 19:00, all'apertura della cena: tre portate in un'ora. Proposta da confermare.">From 19:00, when dinner service opens: three courses within the hour. Proposal to confirm.</p></div><ul class="dish-list">
     {dish("Three courses and a glass of wine", "Tre portate e un calice di vino", "Crudo, a pasta or risotto, dessert, served within the hour.", "Crudo, un primo, un dolce, serviti in un'ora.", price="€ — p.p.")}
   </ul></section>
-  <section class="course" id="desserts"><div class="intro"><h2 data-it="Dolci">Desserts</h2></div><ul class="dish-list">
-    {m("Tiramisù", "Tiramisù")}
-    {m("Seasonal fruit", "Frutta di stagione")}
-    {m("Tarte tatin, custard and vanilla ice cream", "Tarte tatin con crema inglese e gelato alla vaniglia")}
-    {m("Profiteroles with hot chocolate", "Profiterole con cioccolato caldo")}
-    {m("Babà with cream gelato", "Babà con gelato alla crema")}
-  </ul></section>
   {WINE_SECTION}
-  <div class="allergens">
-    <p data-it="Allergeni: chiedete al personale l'elenco completo (Reg. UE 1169/2011). Alcuni prodotti possono essere abbattuti a temperatura negativa per la sicurezza alimentare.">Allergens: ask our staff for the full list (EU Reg. 1169/2011). Some products may be blast-frozen for food safety.</p>
-    <p data-it="Piatti dal menu pubblicato sul sito precedente: prezzi da inserire.">Dishes from the menu published on the previous site: prices to be added.</p>
-  </div>
+  {allergen_block()}
 </div>"""
 
 RESTAURANT = band("page-head", "The dining room", "La sala", f"""
@@ -445,7 +435,7 @@ VISIT = band("page-head", "Street entrance", "L'ingresso su strada", f"""
 
 PAGES = [
     ("index.html", "DeRos Restaurant", "Seafood restaurant in Milan at Via Romagnosi 4, next to La Scala and a few minutes' walk from Via Montenapoleone. Raw bar, daily catch, Italian wines.", HOME),
-    ("menu.html", "Menu · DeRos", "The DeRos menu: raw bar, crudo, pasta, daily catch priced by weight, pre-theatre menu. Seafood in central Milan, near La Scala and Via Montenapoleone.", MENU),
+    ("menu.html", "Menu · DeRos", "The DeRos menu: raw bar, starters, pasta and risotto, fish mains, desserts with suggested pairings. Seafood in central Milan, near La Scala and Via Montenapoleone.", MENU),
     ("restaurant.html", "Restaurant · DeRos", "DeRos, a seafood restaurant between Piazza della Scala and the Montenapoleone fashion district: our story, sourcing and chef.", RESTAURANT),
     ("private-dining.html", "Private dining · DeRos", "Private dinners and corporate events at DeRos, Milan, near La Scala and Via Montenapoleone.", EVENTS),
     ("visit.html", "Visit · DeRos", "Book a table at DeRos, Via Romagnosi 4, Milan: next to La Scala, metro M3 Montenapoleone 250 m.", VISIT),
