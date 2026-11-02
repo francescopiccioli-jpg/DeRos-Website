@@ -198,7 +198,7 @@ HOME = band("hero", "The dining room at night", "La sala di sera", f"""
   <div class="wrap">
     <blockquote data-it="Pesce scelto ogni mattina e servito la sera stessa, a due passi dal Teatro alla Scala.">Fish chosen every morning and served the same evening, two minutes from La Scala.</blockquote>
     <div class="pillars">
-      <div>{t("Daily catch", "Pescato del giorno", tag="strong")}{t("From [ports / suppliers], priced by weight.", "Da [porti / fornitori], a peso.")}</div>
+      <div>{t("Daily catch", "Pescato del giorno", tag="strong")}{t("From [ports / suppliers], delivered every morning.", "Da [porti / fornitori], ogni mattina.")}</div>
       <div>{t("Raw bar", "Crudi", tag="strong")}{t("Oysters, crudo and tartare, made to order.", "Ostriche, crudo e tartare, preparati al momento.")}</div>
       <div>{t("Lunch and dinner", "Pranzo e cena", tag="strong")}{t("Open every day, 12:00 – 15:00 and 19:00 – 23:00.", "Aperti tutti i giorni, 12:00 – 15:00 e 19:00 – 23:00.")}</div>
       <div>{t("Italian cellar", "Cantina", tag="strong")}{t("69 labels, from Franciacorta to Champagne.", "69 etichette, dal Franciacorta allo Champagne.")}</div>
@@ -227,16 +227,6 @@ HOME = band("hero", "The dining room at night", "La sala di sera", f"""
       {t("Proposal: to confirm with the restaurant", "Proposta: da confermare con il ristorante", tag="p", cls="ex")}
     </div>
     {SHOWS_BLOCK}
-  </div>
-</section>
-<section class="pad on-surface" aria-labelledby="catch-title">
-  <div class="wrap slate">
-    <div class="intro">
-      {t("Today's catch", "Il pescato del giorno", tag="p", cls="label")}
-      <h2 id="catch-title" data-it="A peso, scelto al tavolo.">Priced by weight, chosen at the table.</h2>
-      <p data-it="Chiedete di vedere il pesce prima della cottura. Prezzi all'etto.">Ask to see the fish before it is cooked. Prices per 100 g.</p>
-    </div>
-    {CATCH_TABLE}
   </div>
 </section>
 """ + band("side plate", "Private room", "Sala privata", f"""

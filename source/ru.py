@@ -219,3 +219,4 @@ RU.update({
 })
 RU.update({"The room and the kitchen": "Зал и кухня", "Close": "Закрыть"})
 RU.update({"Our menu": "Наше меню", "Download the menu": "Скачать меню"})
+RU.update({"From [ports / suppliers], delivered every morning.": "Из [портов / от поставщиков], каждое утро."})
