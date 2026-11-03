@@ -1,6 +1,6 @@
 # DeRos menu, from "Menu_De_Ros_impaginato_1.docx" and "Dolci_e_distillati_DeRos_impaginato_1.docx" (October 2026).
 # Italian and English text from the documents; English desserts and all Russian are draft translations.
-# Allergen codes copied as they appear in the documents (some codes exceed the 14-item legend: to verify).
+# Allergen codes: November 2026 file (menu_de_ros_novembre.docx), numbered as in Annex II of Reg. (EU) 1169/2011.
 
 def I(it, en, ru, price, dit="", den="", dru="", al="", unit=False):
     return dict(it=it, en=en, ru=ru, dit=dit, den=den, dru=dru, price=price, al=al, unit=unit)
@@ -183,9 +183,9 @@ ALLERGENS = [
  ("Crostacei e prodotti a base di crostacei.", "Crustaceans and products thereof.", "Ракообразные и продукты из них."),
  ("Uova e prodotti a base di uova.", "Eggs and products thereof.", "Яйца и продукты из них."),
  ("Pesce e prodotti a base di pesce.", "Fish and products thereof.", "Рыба и продукты из неё."),
- ("Latte e prodotti a base di latte.", "Milk and products thereof.", "Молоко и молочные продукты."),
  ("Arachidi e prodotti a base di arachidi.", "Peanuts and products thereof.", "Арахис и продукты из него."),
  ("Soia e prodotti a base di soia.", "Soybeans and products thereof.", "Соя и продукты из неё."),
+ ("Latte e prodotti a base di latte (incluso il lattosio).", "Milk and products thereof (including lactose).", "Молоко и молочные продукты (включая лактозу)."),
  ("Frutta a guscio (mandorle, nocciole, noci, pistacchi) e loro prodotti.", "Tree nuts (almonds, hazelnuts, walnuts, pistachios) and products thereof.", "Орехи (миндаль, фундук, грецкие орехи, фисташки) и продукты из них."),
  ("Sedano e prodotti a base di sedano.", "Celery and products thereof.", "Сельдерей и продукты из него."),
  ("Senape e prodotti a base di senape.", "Mustard and products thereof.", "Горчица и продукты из неё."),
@@ -203,6 +203,43 @@ ALLERGEN_ASK = {
 }
 THANKS = {"it": "Grazie · La direzione", "en": "Thank you · The management", "ru": "Спасибо · Администрация"}
 EACH = {"it": "cad.", "en": "each", "ru": "шт."}
+
+# ---- November 2026 update: allergens validated by the kitchen, renamed dishes, new texts ----
+_NOV = {  # Italian name: (allergens, overrides)
+ "Ostriche Gillardeau": ("14", {}), "Ostriche Gold": ("14", {}), "Gambero viola": ("2", {}), "Scampo": ("2", {}),
+ "Carpaccio di scampo di Sicilia": ("2, 8, 10", {}),
+ "Sashimi di ricciola": ("2, 4, 7", {}),
+ "Tartare di gambero viola": ("2", {}),
+ "Tartare di wagyu": ("8", {}),
+ "Calamaro e radice bianca": ("9, 14", {}),
+ "Polpo e lardo": ("8, 14", {}),
+ "Barbabietola rossa fermentata": ("7, 8", {}),
+ "Frittura mista di pesce": ("1, 2, 3, 4, 14", {}),
+ "Acciughe del Cantabrico": ("1, 4, 7", {}),
+ "Centrofolo viola con aneto e cetriolo": ("4", {}),
+ "Zuppa di pesce": ("2, 4, 9, 14", {}),
+ "Risotto con crema di friarielli e cozze": ("1, 9, 14", {}),
+ "Paccheri all'astice": ("1, 2, 9", dict(it="Linguina all'astice", en="Linguine with lobster", ru="Лингвине с омаром")),
+ "Ravioli patate e castagne": ("1, 3, 7, 9", {}),
+ "Cappellacci ripieni": ("1, 3, 7, 9", {}),
+ "Ravioli con ricotta e crema di scampi": ("1, 2, 3, 7, 9", {}),
+ "Sgombro con piselli e cavolo rosso": ("4, 9", dict(it="Sgombro e cavolo rosso fermentato", en="Mackerel and fermented red cabbage", ru="Скумбрия и ферментированная красная капуста")),
+ "Branzino in crosta di sale": ("1, 4", {}),
+ "Tonno alla milanese": ("1, 3, 4, 7", {}),
+ "Coda di rospo in crosta di aglio": ("4, 8", {}),
+ "Grigliata di pesce": ("2, 4, 14", dict(it="Grigliata mista di pesce")),
+ "Tagliata di wagyu con rucola selvatica e pomodori": ("", {}),
+ "Tiramisù": ("1, 3, 7, 8", dict(it="Il classico tiramisù", en="Classic tiramisù", ru="Классический тирамису")),
+ "Semifreddo al torroncino con salsa al cioccolato e rum": ("3, 7, 8", {}),
+ "Tarte Tatin di mele con crema alla cannella": ("1, 3, 7", {}),
+ "Il Re Maritozzo": ("1, 3, 7, 8", dict(dit="Pan brioche con cremoso al cioccolato e panna montata.",
+     den="Brioche bun with chocolate cream and whipped cream.", dru="Бриошь с шоколадным кремом и взбитыми сливками.")),
+}
+for _k, _t, _items in FOOD:
+    for _i in _items:
+        _a, _o = _NOV[_i["it"]]; _i["al"] = _a; _i.update(_o)
+for _d, _p in DESSERTS:
+    _a, _o = _NOV[_d["it"]]; _d["al"] = _a; _d.update(_o)
 
 def price(v, lang, unit=False):
     s = (f"{v:.2f}" if v != int(v) else str(int(v)))
