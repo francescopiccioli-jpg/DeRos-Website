@@ -62,6 +62,17 @@
   }
   setLang(start);
 
+  // Hero video: plays only when motion is welcome and the layout shows it
+  var hv = document.querySelector(".hero-video");
+  if (hv) {
+    var hero = hv.closest(".hero"), rm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var shows = window.matchMedia("(max-width: 759px), (min-width: 1100px)").matches;
+    if (!rm && shows) {
+      hero.classList.add("has-video"); hv.preload = "auto";
+      var p = hv.play(); if (p && p.catch) p.catch(function () { hero.classList.remove("has-video"); });
+    }
+  }
+
   // Mobile menu
   var drawer = document.getElementById("drawer"), openBtn = document.getElementById("open-menu"), closeBtn = document.getElementById("close-menu");
   function toggle(open) {

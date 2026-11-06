@@ -98,6 +98,7 @@ IMG = {"The dining room at night": ("hero", "The DeRos dining room with blue vel
        "Street entrance": ("visit-head", "Piazza della Scala, Milan"),
        "Chef at the pass": ("chef-pass", "The chef cleaning chanterelle mushrooms"),
        "The morning delivery": ("catch", "Fresh fish and shellfish on ice"),
+       "Lunch dish": ("lunch", "Grilled squid on tomato couscous, the one-plate lunch"),
        "Chef portrait": ("chef-portrait", "The chef holding a whole fish in the kitchen")}
 
 def _img(name, alt, eager=False):
@@ -115,6 +116,8 @@ def band(cls, ph_en, ph_it, inner, heading_id):
     if ph_en in IMG:
         name, alt = IMG[ph_en]
         shot = _img(name, alt, eager=("hero" in cls))
+        if "hero" in cls:
+            shot += '<video class="hero-video" muted loop playsinline preload="none" poster="assets/video/hero-poster.webp" aria-hidden="true" tabindex="-1"><source src="assets/video/hero.mp4" type="video/mp4"></video>'
     else:
         shot = t("Photo · " + ph_en, "Foto · " + ph_it, cls="ph-tag")
     return f"""<section class="band-photo {cls}" aria-labelledby="{heading_id}">
@@ -222,6 +225,18 @@ HOME = band("hero", "The dining room at night", "La sala di sera", f"""
     </div>
   </div>
 </section>
+""" + f"""<section class="pad" id="lunch" aria-labelledby="lunch-title">
+  <div class="wrap split">
+    <div class="text">
+      {tr("Lunch break · One-plate lunch", "Pausa pranzo · Piatto unico", "Обеденный перерыв · Одно блюдо", tag="p", cls="label")}
+      <h2 id="lunch-title" data-it="Il piacere di non appesantirsi.">The pleasure of a light lunch.</h2>
+      {tr("A single, balanced fish dish for those who work between La Scala and Via Montenapoleone. Served at lunch, 12:00 to 15:00.", "Un piatto unico di pesce, bilanciato, per chi lavora tra la Scala e via Montenapoleone. A pranzo, dalle 12:00 alle 15:00.", "Сбалансированное рыбное блюдо для тех, кто работает между Ла Скала и Виа Монтенаполеоне. В обед, с 12:00 до 15:00.", tag="p")}
+      {tr("One plate [€ —]", "Piatto unico [€ —]", "Одно блюдо [€ —]", tag="p", cls="lunch-price")}
+      <a class="btn btn-solid" href="visit.html#book" data-it="Prenota il pranzo">Book lunch</a>
+    </div>
+    {photo("Lunch dish", "Piatto del pranzo", "r-4-5")}
+  </div>
+</section>
 """ + GALLERY + f"""<section class="pad on-surface" aria-labelledby="scala-title">
   <div class="wrap scala">
     <div class="text">
@@ -306,13 +321,16 @@ MENU = band("page-head", "Raw bar", "Banco dei crudi", f"""
   <h1 id="menu-title" data-it="Il nostro menu">Our menu</h1>
   {tr(MD.INTRO["en"], MD.INTRO["it"], MD.INTRO["ru"], tag="p")}""", "menu-title") + f"""
 <nav class="menu-nav" aria-label="Menu sections"><div class="wrap">
-  <a href="#raw" data-it="Cruderìa">Raw bar</a><a href="#starters" data-it="Antipasti">Starters</a><a href="#pasta" data-it="Primi">First courses</a><a href="#mains" data-it="Secondi">Mains</a><a href="#desserts" data-it="Dolci">Desserts</a><a href="#drinks" data-it="Bevande">Beverages</a><a href="#theatre" data-it="Pre-teatro">Pre-theatre</a><a href="#wine" data-it="Carta dei vini">Wine list</a><a href="#allergens" data-it="Allergeni">Allergens</a>
+  <a href="#raw" data-it="Cruderìa">Raw bar</a><a href="#starters" data-it="Antipasti">Starters</a><a href="#pasta" data-it="Primi">First courses</a><a href="#mains" data-it="Secondi">Mains</a><a href="#desserts" data-it="Dolci">Desserts</a><a href="#drinks" data-it="Bevande">Beverages</a><a href="#lunch" data-it="Pausa pranzo">Lunch break</a><a href="#theatre" data-it="Pre-teatro">Pre-theatre</a><a href="#wine" data-it="Carta dei vini">Wine list</a><a href="#allergens" data-it="Allergeni">Allergens</a>
 </div></nav>
 <div class="wrap">
   {PDF_LINKS}
   {"".join(course(k, title, items) for k, title, items in MD.FOOD)}
   {desserts()}
   {course(MD.DRINKS[0], MD.DRINKS[1], MD.DRINKS[2])}
+  <section class="course" id="lunch"><div class="intro">{tr("Lunch break", "Pausa pranzo", "Обеденный перерыв", tag="h2")}{tr("One balanced plate of fish, 12:00 to 15:00.", "Un piatto unico di pesce, bilanciato, dalle 12:00 alle 15:00.", "Одно сбалансированное рыбное блюдо, с 12:00 до 15:00.", tag="p")}</div><ul class="dish-list">
+    <li><span class="name">{tr("One-plate lunch of the day", "Piatto unico del giorno", "Блюдо дня")}</span><span class="price">[€ —]</span>{tr("For example: grilled squid on tomato couscous with peppers.", "Per esempio: calamaro alla griglia su cous cous al pomodoro e peperoni.", "Например: кальмар на гриле на кускусе с томатами и перцем.", cls="desc")}</li>
+  </ul></section>
   <section class="course" id="theatre"><div class="intro"><h2 data-it="Menu pre-teatro">Pre-theatre menu</h2><p data-it="Dalle 19:00, all'apertura della cena: tre portate in un'ora. Proposta da confermare.">From 19:00, when dinner service opens: three courses within the hour. Proposal to confirm.</p></div><ul class="dish-list">
     {dish("Three courses and a glass of wine", "Tre portate e un calice di vino", "Crudo, a pasta or risotto, dessert, served within the hour.", "Crudo, un primo, un dolce, serviti in un'ora.", price="€ — p.p.")}
   </ul></section>
