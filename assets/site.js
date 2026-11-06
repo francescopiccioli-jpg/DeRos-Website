@@ -25,9 +25,9 @@
     if (!next.length) return;
     var T = {
       kind: { opera: { en: "Opera", it: "Opera", ru: "Опера" }, ballet: { en: "Ballet", it: "Balletto", ru: "Балет" }, concert: { en: "Concert", it: "Concerto", ru: "Концерт" } },
-      slot: { "14:30": { en: "Lunch before the matinée, from 12:00", it: "Pranzo prima della pomeridiana, dalle 12:00", ru: "Обед перед дневным спектаклем, с 12:00" },
+      slot: { "14:30": { en: "Lunch before the matinée, from 11:30", it: "Pranzo prima della pomeridiana, dalle 11:30", ru: "Обед перед дневным спектаклем, с 11:30" },
               "18:00": { en: "Dinner after the show", it: "Cena dopo lo spettacolo", ru: "Ужин после спектакля" },
-              "20:00": { en: "Pre-theatre dinner at 19:00", it: "Cena pre-teatro alle 19:00", ru: "Ужин перед спектаклем в 19:00" } },
+              "20:00": { en: "Pre-theatre dinner at 18:30", it: "Cena pre-teatro alle 18:30", ru: "Ужин перед спектаклем в 18:30" } },
       note: { "Season opening": { en: "Season opening", it: "Prima della Scala", ru: "Открытие сезона" }, "New Year's Eve": { en: "New Year's Eve", it: "Capodanno", ru: "Новогодняя ночь" } }
     };
     var fmt = null;

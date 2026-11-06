@@ -80,7 +80,7 @@ FOOTER = f"""<footer>
         {t("Seafood restaurant next to La Scala, a few minutes from Via Montenapoleone.", "Ristorante di pesce accanto alla Scala, a pochi minuti da via Montenapoleone.")}
       </div>
       <div><h4 data-it="Indirizzo">Address</h4>Via Romagnosi 4, 20121 Milano<br>{t("Metro M3 Montenapoleone, 250 m", "Metro M3 Montenapoleone, 250 m")}<br>{t("Parking: Autosilo San Fedele", "Parcheggio: Autosilo San Fedele")}</div>
-      <div><h4 data-it="Orari">Opening hours</h4><div class="hours">{t("Every day", "Tutti i giorni")}<span></span>{t("Lunch", "Pranzo")}<span>12:00 – 15:00</span>{t("Dinner", "Cena")}<span>19:00 – 23:00</span></div></div>
+      <div><h4 data-it="Orari">Opening hours</h4><div class="hours">{t("Every day", "Tutti i giorni")}<span></span>{t("Lunch", "Pranzo")}<span>11:30 – 15:00</span>{t("Dinner", "Cena")}<span>18:30 – 23:30</span></div></div>
       <div><h4 data-it="Contatti">Contact</h4>+39 02 3651 7680<br>[info@derosmilano.it]<br><a href="https://www.instagram.com/deros.ristorantemilano/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.facebook.com/deros.ristorante/" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.tiktok.com/@derosristorante" target="_blank" rel="noopener">TikTok</a></div>
     </div>
     <div class="legal">{t("[Company name] · VAT [number]", "[Ragione sociale] · P.IVA [numero]")}<a href="#" data-it="Privacy">Privacy policy</a><a href="#" data-it="Cookie">Cookie policy</a><span>© 2026 DeRos</span></div>
@@ -149,9 +149,9 @@ CATCH_TABLE = f"""<div class="table-scroll">
 # ---------- Pages ----------
 from scala import P as SCALA
 import json, datetime as _dt
-SLOT = {"14:30": ("Lunch before the matinée, from 12:00", "Pranzo prima della pomeridiana, dalle 12:00"),
+SLOT = {"14:30": ("Lunch before the matinée, from 11:30", "Pranzo prima della pomeridiana, dalle 11:30"),
         "18:00": ("Dinner after the show", "Cena dopo lo spettacolo"),
-        "20:00": ("Pre-theatre dinner at 19:00", "Cena pre-teatro alle 19:00")}
+        "20:00": ("Pre-theatre dinner at 18:30", "Cena pre-teatro alle 18:30")}
 KIND = {"opera": ("Opera", "Opera"), "ballet": ("Ballet", "Balletto"), "concert": ("Concert", "Concerto")}
 NOTES = {"2026-12-07": "Season opening", "2026-12-31": "New Year's Eve"}
 
@@ -209,7 +209,7 @@ HOME = band("hero", "The dining room at night", "La sala di sera", f"""
     <div class="pillars">
       <div>{t("Daily catch", "Pescato del giorno", tag="strong")}{t("From [ports / suppliers], delivered every morning.", "Da [porti / fornitori], ogni mattina.")}</div>
       <div>{t("Raw bar", "Crudi", tag="strong")}{t("Oysters, crudo and tartare, made to order.", "Ostriche, crudo e tartare, preparati al momento.")}</div>
-      <div>{t("Lunch and dinner", "Pranzo e cena", tag="strong")}{t("Open every day, 12:00 – 15:00 and 19:00 – 23:00.", "Aperti tutti i giorni, 12:00 – 15:00 e 19:00 – 23:00.")}</div>
+      <div>{t("Lunch and dinner", "Pranzo e cena", tag="strong")}{t("Open every day, 11:30 – 15:00 and 18:30 – 23:30.", "Aperti tutti i giorni, 11:30 – 15:00 e 18:30 – 23:30.")}</div>
       <div>{t("Italian cellar", "Cantina", tag="strong")}{t("69 labels, from Franciacorta to Champagne.", "69 etichette, dal Franciacorta allo Champagne.")}</div>
     </div>
   </div>
@@ -230,7 +230,7 @@ HOME = band("hero", "The dining room at night", "La sala di sera", f"""
     <div class="text">
       {tr("Lunch break · One-plate lunch", "Pausa pranzo · Piatto unico", "Обеденный перерыв · Одно блюдо", tag="p", cls="label")}
       <h2 id="lunch-title" data-it="Il piacere di non appesantirsi.">The pleasure of a light lunch.</h2>
-      {tr("A single, balanced fish dish for those who work between La Scala and Via Montenapoleone. Served at lunch, 12:00 to 15:00.", "Un piatto unico di pesce, bilanciato, per chi lavora tra la Scala e via Montenapoleone. A pranzo, dalle 12:00 alle 15:00.", "Сбалансированное рыбное блюдо для тех, кто работает между Ла Скала и Виа Монтенаполеоне. В обед, с 12:00 до 15:00.", tag="p")}
+      {tr("A single, balanced fish dish for those who work between La Scala and Via Montenapoleone. Served at lunch, 11:30 to 15:00.", "Un piatto unico di pesce, bilanciato, per chi lavora tra la Scala e via Montenapoleone. A pranzo, dalle 11:30 alle 15:00.", "Сбалансированное рыбное блюдо для тех, кто работает между Ла Скала и Виа Монтенаполеоне. В обед, с 11:30 до 15:00.", tag="p")}
       {tr("One plate [€ —]", "Piatto unico [€ —]", "Одно блюдо [€ —]", tag="p", cls="lunch-price")}
       <a class="btn btn-solid" href="visit.html#book" data-it="Prenota il pranzo">Book lunch</a>
     </div>
@@ -252,7 +252,7 @@ HOME = band("hero", "The dining room at night", "La sala di sera", f"""
 </section>
 """ + band("side plate", "Private room", "Sala privata", f"""
   {t("Private dining", "Eventi privati", tag="p", cls="label")}
-  <h2 id="priv-title" data-it="La sala in esclusiva, fino a [N] ospiti.">The whole room, for up to [N] guests.</h2>
+  <h2 id="priv-title" data-it="La sala in esclusiva, fino a 30 ospiti.">The whole room, for up to 30 guests.</h2>
   <p data-it="Compleanni, cene di lavoro, gruppi dopo la Scala. Rispondiamo entro 24 ore.">Birthdays, business dinners, groups after La Scala. We reply within 24 hours.</p>
   <a class="btn btn-line" href="private-dining.html" data-it="Organizza un evento">Plan an event</a>""", "priv-title") + f"""
 <section class="pad" aria-labelledby="chef-title">
@@ -328,10 +328,10 @@ MENU = band("page-head", "Raw bar", "Banco dei crudi", f"""
   {"".join(course(k, title, items) for k, title, items in MD.FOOD)}
   {desserts()}
   {course(MD.DRINKS[0], MD.DRINKS[1], MD.DRINKS[2])}
-  <section class="course" id="lunch"><div class="intro">{tr("Lunch break", "Pausa pranzo", "Обеденный перерыв", tag="h2")}{tr("One balanced plate of fish, 12:00 to 15:00.", "Un piatto unico di pesce, bilanciato, dalle 12:00 alle 15:00.", "Одно сбалансированное рыбное блюдо, с 12:00 до 15:00.", tag="p")}</div><ul class="dish-list">
+  <section class="course" id="lunch"><div class="intro">{tr("Lunch break", "Pausa pranzo", "Обеденный перерыв", tag="h2")}{tr("One balanced plate of fish, 11:30 to 15:00.", "Un piatto unico di pesce, bilanciato, dalle 11:30 alle 15:00.", "Одно сбалансированное рыбное блюдо, с 11:30 до 15:00.", tag="p")}</div><ul class="dish-list">
     <li><span class="name">{tr("One-plate lunch of the day", "Piatto unico del giorno", "Блюдо дня")}</span><span class="price">[€ —]</span>{tr("For example: grilled squid on tomato couscous with peppers.", "Per esempio: calamaro alla griglia su cous cous al pomodoro e peperoni.", "Например: кальмар на гриле на кускусе с томатами и перцем.", cls="desc")}</li>
   </ul></section>
-  <section class="course" id="theatre"><div class="intro"><h2 data-it="Menu pre-teatro">Pre-theatre menu</h2><p data-it="Dalle 19:00, all'apertura della cena: tre portate in un'ora. Proposta da confermare.">From 19:00, when dinner service opens: three courses within the hour. Proposal to confirm.</p></div><ul class="dish-list">
+  <section class="course" id="theatre"><div class="intro"><h2 data-it="Menu pre-teatro">Pre-theatre menu</h2><p data-it="Dalle 18:30, all'apertura della cena: tre portate in un'ora. Proposta da confermare.">From 18:30, when dinner service opens: three courses within the hour. Proposal to confirm.</p></div><ul class="dish-list">
     {dish("Three courses and a glass of wine", "Tre portate e un calice di vino", "Crudo, a pasta or risotto, dessert, served within the hour.", "Crudo, un primo, un dolce, serviti in un'ora.", price="€ — p.p.")}
   </ul></section>
   {WINE_SECTION}
@@ -369,9 +369,9 @@ RESTAURANT = band("page-head", "The dining room", "La sala", f"""
 </section>
 <section class="pad on-surface" aria-labelledby="room-title">
   <div class="wrap">
-    <div class="sec-head"><div>{t("The room", "La sala", tag="p", cls="label")}<h2 id="room-title" data-it="[N] coperti, un servizio caloroso.">[N] seats, warm service.</h2></div></div>
+    <div class="sec-head"><div>{t("The room", "La sala", tag="p", cls="label")}<h2 id="room-title" data-it="30 coperti, un servizio caloroso.">30 seats, warm service.</h2></div></div>
     <div class="facts-grid">
-      <div>{t("Seats", "Coperti", tag="p", cls="label")}<p>[N]</p></div>
+      <div>{t("Seats", "Coperti", tag="p", cls="label")}<p>30</p></div>
       <div>{t("Private room", "Sala privata", tag="p", cls="label")}<p data-it="Fino a [N] ospiti">Up to [N] guests</p></div>
       <div>{t("Atmosphere", "Atmosfera", tag="p", cls="label")}<p data-it="Intima e accogliente, senza formalità">Intimate and welcoming, never stiff</p></div>
     </div>
@@ -381,13 +381,13 @@ RESTAURANT = band("page-head", "The dining room", "La sala", f"""
 EVENTS = band("page-head", "Private room set for dinner", "Sala privata apparecchiata", f"""
   {t("Private dining", "Eventi privati", tag="p", cls="label")}
   <h1 id="ev-title" data-it="Cene private ed eventi aziendali.">Private dinners and corporate events.</h1>
-  <p data-it="La sala in esclusiva o un ambiente riservato fino a [N] ospiti.">The whole restaurant or a private room for up to [N] guests.</p>""", "ev-title") + f"""
+  <p data-it="Il ristorante in esclusiva, fino a 30 ospiti.">The whole restaurant, for up to 30 guests.</p>""", "ev-title") + f"""
 <section class="pad" aria-labelledby="formats-title">
   <div class="wrap">
     <div class="sec-head"><div>{t("Formats", "Formati", tag="p", cls="label")}<h2 id="formats-title" data-it="Tre formule per i gruppi.">Three options for groups.</h2></div></div>
     <div class="facts-grid">
       <div>{t("Private room", "Sala privata", tag="h3")}<p data-it="Fino a [N] ospiti, menu fisso da € — a persona.">Up to [N] guests, set menu from € — per person.</p></div>
-      <div>{t("Exclusive use", "Locale in esclusiva", tag="h3")}<p data-it="L'intero ristorante, fino a [N] ospiti seduti.">The whole restaurant, up to [N] seated guests.</p></div>
+      <div>{t("Exclusive use", "Locale in esclusiva", tag="h3")}<p data-it="L'intero ristorante, fino a 30 ospiti seduti.">The whole restaurant, up to 30 seated guests.</p></div>
       <div>{t("After La Scala", "Dopo la Scala", tag="h3")}<p data-it="Cena per gruppi dopo lo spettacolo, con tavolo pronto all'uscita.">Group supper after the performance, table ready as you leave.</p></div>
     </div>
   </div>
@@ -441,7 +441,7 @@ VISIT = band("page-head", "Street entrance", "L'ingresso su strada", f"""
     <div class="facts-grid">
       <div>{t("Metro", "Metro", tag="p", cls="label")}<p data-it="M3 Montenapoleone, 250 m a piedi">M3 Montenapoleone, 250 m on foot</p></div>
       <div>{t("Parking", "Parcheggio", tag="p", cls="label")}<p>Autosilo San Fedele</p></div>
-      <div>{t("Opening hours", "Orari", tag="p", cls="label")}<div class="hours">{t("Every day", "Tutti i giorni")}<span></span>{t("Lunch", "Pranzo")}<span>12:00 – 15:00</span>{t("Dinner", "Cena")}<span>19:00 – 23:00</span></div></div>
+      <div>{t("Opening hours", "Orari", tag="p", cls="label")}<div class="hours">{t("Every day", "Tutti i giorni")}<span></span>{t("Lunch", "Pranzo")}<span>11:30 – 15:00</span>{t("Dinner", "Cena")}<span>18:30 – 23:30</span></div></div>
     </div>
   </div>
 </section>"""
