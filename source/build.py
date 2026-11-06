@@ -314,7 +314,9 @@ def allergen_block():
     <div class="allergen-list">{tr(L.ALLERGEN_LEGAL["en"], L.ALLERGEN_LEGAL["it"], L.ALLERGEN_LEGAL["ru"], tag="p")}<ol>{li}</ol>{tr(L.ALLERGEN_ASK["en"], L.ALLERGEN_ASK["it"], L.ALLERGEN_ASK["ru"], tag="p")}</div></section>"""
 
 PDF_LINKS = f"""<div class="pdf-links">{tr("Download the menu", "Scarica il menu", "Скачать меню", cls="label")}
-  <a href="assets/menu/menu-deros-it.pdf" download>Italiano · PDF</a><a href="assets/menu/menu-deros-en.pdf" download>English · PDF</a><a href="assets/menu/menu-deros-ru.pdf" download>Русский · PDF</a></div>"""
+  <a href="assets/menu/menu-deros-it.pdf" download>Italiano · PDF</a><a href="assets/menu/menu-deros-en.pdf" download>English · PDF</a><a href="assets/menu/menu-deros-ru.pdf" download>Русский · PDF</a></div>
+<div class="pdf-links">{tr("Desserts and spirits", "Dolci e distillati", "Десерты и крепкие напитки", cls="label")}
+  <a href="assets/menu/dolci-deros-it.pdf" download>Italiano · PDF</a><a href="assets/menu/dolci-deros-en.pdf" download>English · PDF</a><a href="assets/menu/dolci-deros-ru.pdf" download>Русский · PDF</a></div>"""
 
 MENU = band("page-head", "Raw bar", "Banco dei crudi", f"""
   {t("Menu", "Menu", tag="p", cls="label")}

@@ -75,39 +75,51 @@ def page(lang, n, total, title, inner, cls=""):
     head = f'<h1>{e(title)}</h1><div class="rule"></div>' if title else ""
     return f'<section class="page {cls}"><div class="top">{LOGO}</div><div class="body">{head}{inner}</div>{foot}</section>'
 
+def allergen_page(lang):
+    li = "".join(f"<li><b>{k}</b><span>{e(a[{'it':0,'en':1,'ru':2}[lang]])}</span></li>" for k, a in enumerate(ALLERGENS, 1))
+    alg = f'''<p class="note">{e(ALLERGEN_NOTE[lang])}</p><p class="legal">{e(ALLERGEN_LEGAL[lang])}</p><ol>{li}</ol>
+      <p class="ask">{e(ALLERGEN_ASK[lang])}</p><p class="thanks">{e(THANKS[lang])}</p>'''
+    return (ALLERGEN_TITLE[lang], alg, "allergens")
+
+def cover(lang, title, intro=True):
+    extra = f'<p class="intro">{e(INTRO[lang])}</p><p class="tag">{e(TAGLINE[lang])}</p>' if intro else ""
+    return ("", f'''{LOGO}<p class="kicker">Seafood restaurant · Milano</p><h1>{e(title)}</h1><div class="rule" style="margin:0 auto"></div>{extra}''', "cover")
+
+def wrap(lang, pages):
+    total = len(pages)
+    body = "".join(page(lang, i + 1, total, t, inner, c) for i, (t, inner, c) in enumerate(pages))
+    return f'<!doctype html><html lang="{lang}"><head><meta charset="utf-8"><style>{CSS}</style></head><body>{body}</body></html>'
+
 def build(lang):
-    pages = []
-    cover = f'''{LOGO}<p class="kicker">Seafood restaurant · Milano</p><h1>{e(OUR_MENU[lang])}</h1><div class="rule" style="margin:0 auto"></div>
-      <p class="intro">{e(INTRO[lang])}</p><p class="tag">{e(TAGLINE[lang])}</p>'''
-    pages.append(("", cover, "cover"))
+    pages = [cover(lang, OUR_MENU[lang])]
     for key, title, items in FOOD:
         pages.append((title[lang], "".join(item_html(i, lang) for i in items), ""))
+    pages.append((DRINKS[1][lang], "".join(item_html(i, lang) for i in DRINKS[2]), ""))
+    pages.append(allergen_page(lang))
+    return wrap(lang, pages)
+
+def build_desserts(lang):
+    pages = [cover(lang, DESSERT_TITLE[lang], intro=False)]
     for chunk in (DESSERTS[:2], DESSERTS[2:]):
         inner = ""
         for d, pairs in chunk:
             inner += f'<div class="dessert">{item_html(d, lang)}<p class="pair-label">{e(PAIRINGS[lang])}</p><div class="pair">{"".join(item_html(p, lang) for p in pairs)}</div></div>'
         pages.append((DESSERT_TITLE[lang], inner, ""))
-    pages.append((DRINKS[1][lang], "".join(item_html(i, lang) for i in DRINKS[2]), ""))
-    li = "".join(f"<li><b>{k}</b><span>{e(a[{'it':0,'en':1,'ru':2}[lang]])}</span></li>" for k, a in enumerate(ALLERGENS, 1))
-    alg = f'''<p class="note">{e(ALLERGEN_NOTE[lang])}</p><p class="legal">{e(ALLERGEN_LEGAL[lang])}</p><ol>{li}</ol>
-      <p class="ask">{e(ALLERGEN_ASK[lang])}</p><p class="thanks">{e(THANKS[lang])}</p>'''
-    pages.append((ALLERGEN_TITLE[lang], alg, "allergens"))
-    total = len(pages)
-    body = "".join(page(lang, i + 1, total, t, inner, c) for i, (t, inner, c) in enumerate(pages))
-    return f'<!doctype html><html lang="{lang}"><head><meta charset="utf-8"><style>{CSS}</style></head><body>{body}</body></html>'
+    pages.append(allergen_page(lang))
+    return wrap(lang, pages)
 
 async def render():
     from playwright.async_api import async_playwright
     async with async_playwright() as p:
         b = await p.chromium.launch()
-        for lang in ("it", "en", "ru"):
-            path = os.path.join(OUT, f"menu-deros-{lang}.html")
-            open(path, "w").write(build(lang))
+        for lang, kind, fn in [(l, k, f) for l in ("it", "en", "ru") for k, f in (("menu", build), ("dolci", build_desserts))]:
+            path = os.path.join(OUT, f"{kind}-deros-{lang}.html")
+            open(path, "w").write(fn(lang))
             pg = await b.new_page()
             await pg.goto("file://" + path); await pg.evaluate("document.fonts.ready")
             over = await pg.evaluate("""[...document.querySelectorAll('.page')].map((p,i)=>{const b=p.querySelector('.body');return b.scrollHeight>b.clientHeight+1?i+1:null}).filter(Boolean)""")
-            await pg.pdf(path=os.path.join(OUT, f"menu-deros-{lang}.pdf"), format="A4", print_background=True, prefer_css_page_size=True)
-            print(lang, "overflow pages:", over)
+            await pg.pdf(path=os.path.join(OUT, f"{kind}-deros-{lang}.pdf"), format="A4", print_background=True, prefer_css_page_size=True)
+            print(kind, lang, "overflow pages:", over)
             await pg.close()
         await b.close()
 
