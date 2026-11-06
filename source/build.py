@@ -372,7 +372,7 @@ RESTAURANT = band("page-head", "The dining room", "La sala", f"""
     <div class="sec-head"><div>{t("The room", "La sala", tag="p", cls="label")}<h2 id="room-title" data-it="30 coperti, un servizio caloroso.">30 seats, warm service.</h2></div></div>
     <div class="facts-grid">
       <div>{t("Seats", "Coperti", tag="p", cls="label")}<p>30</p></div>
-      <div>{t("Private room", "Sala privata", tag="p", cls="label")}<p data-it="Fino a [N] ospiti">Up to [N] guests</p></div>
+      <div>{tr("Exclusive use", "In esclusiva", "Целиком", tag="p", cls="label")}{tr("Up to 30 guests", "Fino a 30 ospiti", "До 30 гостей", tag="p")}</div>
       <div>{t("Atmosphere", "Atmosfera", tag="p", cls="label")}<p data-it="Intima e accogliente, senza formalità">Intimate and welcoming, never stiff</p></div>
     </div>
   </div>
@@ -386,7 +386,7 @@ EVENTS = band("page-head", "Private room set for dinner", "Sala privata apparecc
   <div class="wrap">
     <div class="sec-head"><div>{t("Formats", "Formati", tag="p", cls="label")}<h2 id="formats-title" data-it="Tre formule per i gruppi.">Three options for groups.</h2></div></div>
     <div class="facts-grid">
-      <div>{t("Private room", "Sala privata", tag="h3")}<p data-it="Fino a [N] ospiti, menu fisso da € — a persona.">Up to [N] guests, set menu from € — per person.</p></div>
+      <div>{tr("Set menu", "Menu dedicato", "Специальное меню", tag="h3")}{tr("A menu agreed with the chef in advance, from € — per person.", "Un menu concordato prima con lo chef, da € — a persona.", "Меню, заранее согласованное с шефом, от € — на человека.", tag="p")}</div>
       <div>{t("Exclusive use", "Locale in esclusiva", tag="h3")}<p data-it="L'intero ristorante, fino a 30 ospiti seduti.">The whole restaurant, up to 30 seated guests.</p></div>
       <div>{t("After La Scala", "Dopo la Scala", tag="h3")}<p data-it="Cena per gruppi dopo lo spettacolo, con tavolo pronto all'uscita.">Group supper after the performance, table ready as you leave.</p></div>
     </div>
