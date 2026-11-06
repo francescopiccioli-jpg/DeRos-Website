@@ -10,6 +10,11 @@ def t(en, it, tag="span", cls="", extra=""):
     c = f' class="{cls}"' if cls else ""
     return f'<{tag}{c}{extra} data-it="{html.escape(it, quote=True)}">{html.escape(en)}</{tag}>'
 
+RU_EXTRA = {}
+def tr(en, it, ru, tag="span", cls=""):
+    if ru: RU_EXTRA[en] = ru
+    return t(en, it, tag, cls)
+
 paths = open(os.path.join(SRC, "paths.txt")).read().split("\n")
 LOGO = '<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="logo" viewBox="30 38 377 208">' + \
     "".join(f'<path fill="currentColor" d="{d.strip()}"/>' for d in paths) + "</symbol></defs></svg>"
@@ -87,13 +92,13 @@ FOOTER = f"""<footer>
 # Restaurant photos from the previous site (rights to confirm before launch); chef, catch and street are still Unsplash.
 IMG = {"The dining room at night": ("hero", "The DeRos dining room with blue velvet banquettes"),
        "Private room": ("private", "A blue velvet booth set for dinner"),
-       "Raw bar": ("rawbar", "Bluefin tuna, sliced raw"),
+       "Raw bar": ("rawbar", "Amberjack sashimi with goat cheese"),
        "The dining room": ("restaurant-head", "The DeRos dining room"),
        "Private room set for dinner": ("events-head", "A velvet cushion embroidered with the DeRos logo"),
        "Street entrance": ("visit-head", "Piazza della Scala, Milan"),
-       "Chef at the pass": ("chef-pass", "Chef plating a dish"),
+       "Chef at the pass": ("chef-pass", "The chef cleaning chanterelle mushrooms"),
        "The morning delivery": ("catch", "Fresh fish and shellfish on ice"),
-       "Chef portrait": ("chef-portrait", "Chef finishing a fish dish")}
+       "Chef portrait": ("chef-portrait", "The chef holding a whole fish in the kitchen")}
 
 def _img(name, alt, eager=False):
     load = 'fetchpriority="high"' if eager else 'loading="lazy"'
@@ -170,15 +175,16 @@ def shows_block():
 SHOWS_BLOCK = shows_block()
 
 
-GALLERY_ORDER = [3,16,12,21,1,29,5,19,14,24,2,30,35,11]
-_ALT = {"room": (1,2,3,4,5,6), "tuna": (16,18,19,20), "wine": (11,12,14,35), "pasta": (21,22,23,24,26,27,34), "mullet": (28,29,30,31,33)}
-_ALT_TXT = {"room": "The DeRos dining room", "tuna": "Bluefin tuna carpaccio", "wine": "Wine service", "pasta": "Smoked spaghetti with clams", "mullet": "Red mullet tempura with artichokes"}
+GALLERY_ITEMS = [("g3", "The DeRos dining room"), ("n-sashimi", "Amberjack sashimi"), ("g12", "Wine service"),
+    ("n-fritto", "Mixed fried seafood"), ("g1", "A table set in the dining room"), ("n-tartare", "Wagyu tartare"),
+    ("n-logo", "The DeRos logo etched on glass"), ("n-tonno", "Tuna Milanese"), ("g14", "Wine service"),
+    ("n-calamaro", "Warm squid on celeriac purée"), ("g2", "A velvet cushion embroidered with the DeRos logo"),
+    ("n-tagliata", "Wagyu tagliata"), ("n-funghi", "Wild chanterelle mushrooms"), ("g5", "Glasses on a set table"),
+    ("n-chef", "The chef with the day's catch"), ("g35", "Champagne service")]
 def gallery_block():
     items = []
-    for i, n in enumerate(GALLERY_ORDER):
-        kind = next(k for k, v in _ALT.items() if n in v)
-        wide = ' class="wide"' if n == 33 else ''
-        items.append(f'<li{wide}><button type="button" class="g-open" data-full="assets/img/gallery/g{n}.webp" aria-label="{_ALT_TXT[kind]}"><img src="assets/img/gallery/g{n}.webp" alt="{_ALT_TXT[kind]}" loading="lazy" decoding="async"></button></li>')
+    for f, alt in GALLERY_ITEMS:
+        items.append(f'<li><button type="button" class="g-open" data-full="assets/img/gallery/{f}.webp" aria-label="{alt}"><img src="assets/img/gallery/{f}.webp" alt="{alt}" loading="lazy" decoding="async"></button></li>')
     return f"""<section class="pad gallery-sec" aria-labelledby="gallery-title">
   <div class="wrap">
     <div class="sec-head"><h2 id="gallery-title" data-it="La sala e la cucina">The room and the kitchen</h2>
@@ -210,9 +216,9 @@ HOME = band("hero", "The dining room at night", "La sala di sera", f"""
   <div class="wrap">
     <div class="sec-head"><h2 id="dishes-title" data-it="I piatti firma">Signature dishes</h2><a class="text-link" href="menu.html" data-it="Il menu completo">The full menu</a></div>
     <div class="plates">
-      <article>{photo("Dish", "Piatto", "r-3-4", img="dish-tuna", alt="Bluefin tuna carpaccio")}{t("Bluefin tuna carpaccio, fresh wasabi", "Carpaccio di tonno rosso con wasabi fresco", tag="h3")}</article>
-      <article>{photo("Dish", "Piatto", "r-3-4", img="dish-spaghetti", alt="Smoked spaghetti with clams")}{t("Smoked spaghetti, clams, grilled datterini tomatoes", "Spaghetti affumicati alle vongole e datterini grigliati", tag="h3")}</article>
-      <article>{photo("Dish", "Piatto", "r-3-4", img="dish-triglia", alt="Red mullet tempura with artichokes")}{t("Red mullet tempura, Sardinian artichokes", "Triglia in tempura con carciofi sardi", tag="h3")}</article>
+      <article>{photo("Dish", "Piatto", "r-3-4", img="dish-risotto", alt="Risotto with friarielli cream and mussels")}{tr("Risotto with friarielli cream and mussels", "Risotto con crema di friarielli e cozze", "Ризотто с кремом из фриарьелли и мидиями", tag="h3")}</article>
+      <article>{photo("Dish", "Piatto", "r-3-4", img="dish-fritto", alt="Mixed fried seafood")}{tr("Mixed fried seafood", "Frittura mista di pesce", "Ассорти морепродуктов во фритюре", tag="h3")}</article>
+      <article>{photo("Dish", "Piatto", "r-3-4", img="dish-maritozzo", alt="Il Re Maritozzo, brioche bun with chocolate cream and whipped cream")}{tr("Il Re Maritozzo", "Il Re Maritozzo", "Il Re Maritozzo", tag="h3")}</article>
     </div>
   </div>
 </section>
@@ -265,7 +271,6 @@ def wine_section():
     {t(f"{n} labels. Prices per bottle.", f"{n} etichette. Prezzi a bottiglia.", tag="p")}
     {t("Ask the staff for tasting notes and wines by the glass.", "Chiedete al personale note di degustazione e vini al calice.", tag="p")}</div>
     <div class="wine-groups">{"".join(groups)}</div></section>"""
-RU_EXTRA = {}
 WINE_SECTION = wine_section()
 
 import menu_data as MD
