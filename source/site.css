@@ -309,3 +309,4 @@ footer .legal { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 13px; 
 }
 .lunch-price { font-family: var(--f-display); font-size: 22px; margin: 4px 0 18px; }
 .split .text .btn { justify-self: start; }
+.theatre-note { display: grid; gap: 18px; justify-items: start; color: var(--muted); }

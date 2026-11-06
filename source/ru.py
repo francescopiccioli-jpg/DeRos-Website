@@ -221,3 +221,4 @@ RU.update({"The room and the kitchen": "Зал и кухня", "Close": "Зак�
 RU.update({"Our menu": "Наше меню", "Download the menu": "Скачать меню"})
 RU.update({"From [ports / suppliers], delivered every morning.": "Из [портов / от поставщиков], каждое утро."})
 RU.update({"The pleasure of a light lunch.": "Удовольствие лёгкого обеда.", "Book lunch": "Забронировать обед"})
+RU.update({"The whole restaurant, for up to 30 guests, also outside regular opening hours.": "Весь ресторан — до 30 гостей, в том числе вне обычных часов работы."})

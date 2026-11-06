@@ -244,8 +244,8 @@ HOME = band("hero", "The dining room at night", "La sala di sera", f"""
       <h2 id="scala-title" data-it="La tavola che segue il calendario della Scala.">A table timed to La Scala's calendar.</h2>
       <p class="lead" data-it="Il teatro è a due minuti a piedi. Pranzo prima delle pomeridiane, cena prima degli spettacoli serali, cena dopo quelli che iniziano alle 18:00.">The theatre is a two-minute walk away. Lunch before matinées, dinner before evening performances, supper after the 18:00 shows.</p>
       <p data-it="In carta c'è anche il Franciacorta Bellavista Teatro alla Scala 2020.">The list even includes Bellavista's Franciacorta Teatro alla Scala 2020.</p>
-      <a class="text-link" href="menu.html#theatre" data-it="Il menu pre-teatro">The pre-theatre menu</a>
-      {t("Proposal: to confirm with the restaurant", "Proposta: da confermare con il ristorante", tag="p", cls="ex")}
+      {tr("On show nights we can serve earlier or stay open after the curtain: just ask when you book.", "Nelle sere di spettacolo possiamo servire prima o restare aperti dopo il sipario: chiedetelo quando prenotate.", "В дни спектаклей мы можем накрыть раньше или остаться открытыми после спектакля: просто скажите при бронировании.", tag="p")}
+      <a class="text-link" href="menu.html#theatre" data-it="Prima dello spettacolo">Before the show</a>
     </div>
     {SHOWS_BLOCK}
   </div>
@@ -331,9 +331,9 @@ MENU = band("page-head", "Raw bar", "Banco dei crudi", f"""
   <section class="course" id="lunch"><div class="intro">{tr("Lunch break", "Pausa pranzo", "Обеденный перерыв", tag="h2")}{tr("One balanced plate of fish, 11:30 to 15:00.", "Un piatto unico di pesce, bilanciato, dalle 11:30 alle 15:00.", "Одно сбалансированное рыбное блюдо, с 11:30 до 15:00.", tag="p")}</div><ul class="dish-list">
     <li><span class="name">{tr("One-plate lunch of the day", "Piatto unico del giorno", "Блюдо дня")}</span><span class="price">[€ —]</span>{tr("For example: grilled squid on tomato couscous with peppers.", "Per esempio: calamaro alla griglia su cous cous al pomodoro e peperoni.", "Например: кальмар на гриле на кускусе с томатами и перцем.", cls="desc")}</li>
   </ul></section>
-  <section class="course" id="theatre"><div class="intro"><h2 data-it="Menu pre-teatro">Pre-theatre menu</h2><p data-it="Dalle 18:30, all'apertura della cena: tre portate in un'ora. Proposta da confermare.">From 18:30, when dinner service opens: three courses within the hour. Proposal to confirm.</p></div><ul class="dish-list">
-    {dish("Three courses and a glass of wine", "Tre portate e un calice di vino", "Crudo, a pasta or risotto, dessert, served within the hour.", "Crudo, un primo, un dolce, serviti in un'ora.", price="€ — p.p.")}
-  </ul></section>
+  <section class="course" id="theatre"><div class="intro">{tr("Before the show", "Prima dello spettacolo", "Перед спектаклем", tag="h2")}</div><div class="theatre-note">
+    {tr("Tell us your curtain time when you book and we will pace dinner around it. On La Scala nights we can open earlier or stay open after the performance, on request.", "Diteci l'orario del sipario quando prenotate: organizziamo i tempi della cena di conseguenza. Nelle sere della Scala possiamo aprire prima o restare aperti dopo lo spettacolo, su richiesta.", "Сообщите время начала спектакля при бронировании, и мы подстроим ужин под него. В дни спектаклей в Ла Скала мы можем открыться раньше или работать после спектакля по запросу.", tag="p")}
+    <a class="btn btn-solid" href="visit.html#book" data-it="Prenota prima dello spettacolo">Book before the show</a></div></section>
   {WINE_SECTION}
   {allergen_block()}
 </div>"""
@@ -381,7 +381,7 @@ RESTAURANT = band("page-head", "The dining room", "La sala", f"""
 EVENTS = band("page-head", "Private room set for dinner", "Sala privata apparecchiata", f"""
   {t("Private dining", "Eventi privati", tag="p", cls="label")}
   <h1 id="ev-title" data-it="Cene private ed eventi aziendali.">Private dinners and corporate events.</h1>
-  <p data-it="Il ristorante in esclusiva, fino a 30 ospiti.">The whole restaurant, for up to 30 guests.</p>""", "ev-title") + f"""
+  <p data-it="Il ristorante in esclusiva, fino a 30 ospiti, anche fuori dagli orari di apertura.">The whole restaurant, for up to 30 guests, also outside regular opening hours.</p>""", "ev-title") + f"""
 <section class="pad" aria-labelledby="formats-title">
   <div class="wrap">
     <div class="sec-head"><div>{t("Formats", "Formati", tag="p", cls="label")}<h2 id="formats-title" data-it="Tre formule per i gruppi.">Three options for groups.</h2></div></div>
