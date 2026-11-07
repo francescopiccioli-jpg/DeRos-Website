@@ -207,7 +207,7 @@ HOME = band("hero", "The dining room at night", "La sala di sera", f"""
   <div class="wrap">
     <blockquote data-it="Pesce scelto ogni mattina e servito la sera stessa, a due passi dal Teatro alla Scala.">Fish chosen every morning and served the same evening, two minutes from La Scala.</blockquote>
     <div class="pillars">
-      <div>{t("Daily catch", "Pescato del giorno", tag="strong")}{t("From [ports / suppliers], delivered every morning.", "Da [porti / fornitori], ogni mattina.")}</div>
+      <div>{t("Daily catch", "Pescato del giorno", tag="strong")}{tr("Oysters from France, prawns from Mazara del Vallo, langoustines from Sicily, lobster from Canada.", "Ostriche dalla Francia, gamberi da Mazara del Vallo, scampi dalla Sicilia, astice dal Canada.", "Устрицы из Франции, креветки из Мадзара-дель-Валло, лангустины с Сицилии, омары из Канады.")}</div>
       <div>{t("Raw bar", "Crudi", tag="strong")}{t("Oysters, crudo and tartare, made to order.", "Ostriche, crudo e tartare, preparati al momento.")}</div>
       <div>{t("Lunch and dinner", "Pranzo e cena", tag="strong")}{t("Open every day, 11:30 – 15:00 and 18:30 – 23:30.", "Aperti tutti i giorni, 11:30 – 15:00 e 18:30 – 23:30.")}</div>
       <div>{t("Italian cellar", "Cantina", tag="strong")}{t("69 labels, from Franciacorta to Champagne.", "69 etichette, dal Franciacorta allo Champagne.")}</div>
@@ -307,6 +307,10 @@ def desserts():
         out.append(f'<div class="dessert-block"><ul class="dish-list">{mi(d)}</ul>{tr(MD.PAIRINGS["en"], MD.PAIRINGS["it"], MD.PAIRINGS["ru"], tag="p", cls="pair-label")}<ul class="dish-list pairs">{pl}</ul></div>')
     T = MD.DESSERT_TITLE
     return f'<section class="course" id="desserts"><div class="intro">{tr(T["en"], T["it"], T["ru"], tag="h2")}</div><div>{"".join(out)}</div></section>'
+def origins_block():
+    T = MD.ORIGIN_TITLE
+    li = "".join(f'<li>{tr(a[1], a[0], a[2], cls="name")}{tr(b[1], b[0], b[2], cls="price")}</li>' for a, b in MD.ORIGINS)
+    return f'<section class="course" id="origins"><div class="intro">{tr(T["en"], T["it"], T["ru"], tag="h2")}</div><ul class="dish-list origins">{li}</ul></section>'
 def allergen_block():
     li = "".join(f'<li><b>{k}</b>{tr(a[1], a[0], a[2])}</li>' for k, a in enumerate(MD.ALLERGENS, 1))
     L = MD
@@ -323,7 +327,7 @@ MENU = band("page-head", "Raw bar", "Banco dei crudi", f"""
   <h1 id="menu-title" data-it="Il nostro menu">Our menu</h1>
   {tr(MD.INTRO["en"], MD.INTRO["it"], MD.INTRO["ru"], tag="p")}""", "menu-title") + f"""
 <nav class="menu-nav" aria-label="Menu sections"><div class="wrap">
-  <a href="#raw" data-it="Cruderìa">Raw bar</a><a href="#starters" data-it="Antipasti">Starters</a><a href="#pasta" data-it="Primi">First courses</a><a href="#mains" data-it="Secondi">Mains</a><a href="#desserts" data-it="Dolci">Desserts</a><a href="#drinks" data-it="Bevande">Beverages</a><a href="#lunch" data-it="Pausa pranzo">Lunch break</a><a href="#theatre" data-it="Pre-teatro">Pre-theatre</a><a href="#wine" data-it="Carta dei vini">Wine list</a><a href="#allergens" data-it="Allergeni">Allergens</a>
+  <a href="#raw" data-it="Cruderìa">Raw bar</a><a href="#starters" data-it="Antipasti">Starters</a><a href="#pasta" data-it="Primi">First courses</a><a href="#mains" data-it="Secondi">Mains</a><a href="#desserts" data-it="Dolci">Desserts</a><a href="#drinks" data-it="Bevande">Beverages</a><a href="#lunch" data-it="Pausa pranzo">Lunch break</a><a href="#theatre" data-it="Pre-teatro">Pre-theatre</a><a href="#wine" data-it="Carta dei vini">Wine list</a><a href="#origins" data-it="Provenienze">Origins</a><a href="#allergens" data-it="Allergeni">Allergens</a>
 </div></nav>
 <div class="wrap">
   {PDF_LINKS}
@@ -337,6 +341,7 @@ MENU = band("page-head", "Raw bar", "Banco dei crudi", f"""
     {tr("Tell us your curtain time when you book and we will pace dinner around it. On La Scala nights we can open earlier or stay open after the performance, on request.", "Diteci l'orario del sipario quando prenotate: organizziamo i tempi della cena di conseguenza. Nelle sere della Scala possiamo aprire prima o restare aperti dopo lo spettacolo, su richiesta.", "Сообщите время начала спектакля при бронировании, и мы подстроим ужин под него. В дни спектаклей в Ла Скала мы можем открыться раньше или работать после спектакля по запросу.", tag="p")}
     <a class="btn btn-solid" href="visit.html#book" data-it="Prenota prima dello spettacolo">Book before the show</a></div></section>
   {WINE_SECTION}
+  {origins_block()}
   {allergen_block()}
 </div>"""
 

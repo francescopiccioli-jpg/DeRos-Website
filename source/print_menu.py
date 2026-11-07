@@ -53,6 +53,12 @@ h1 { font-family: 'Spectral', serif; font-weight: 300; font-size: 32pt; letter-s
 .cover h1 { font-size: 24pt; margin-top: 8mm; }
 .cover .intro { font-family: 'Spectral', serif; font-weight: 300; font-size: 13pt; line-height: 1.55; max-width: 120mm; }
 .cover .tag { font-size: 8pt; letter-spacing: .28em; text-transform: uppercase; color: #2C5A70; margin-top: 4mm; }
+/* origins */
+.origins { margin: -2mm 0 8mm; padding-bottom: 6mm; border-bottom: 0.4pt solid rgba(44,90,112,.45); }
+.origins h2 { font-family: 'Spectral', serif; font-weight: 400; font-size: 14pt; text-align: center; margin-bottom: 4mm; }
+.origins ul { list-style: none; columns: 2; column-gap: 12mm; }
+.allergens .origins li { display: flex; justify-content: space-between; gap: 4mm; font-size: 9.2pt; padding: 1.2mm 0; border-bottom: 0.3pt dotted rgba(29,26,82,.3); break-inside: avoid; }
+.origins li span:last-child { color: #5B5978; }
 /* allergens */
 .allergens .note { text-align: center; font-weight: 600; font-size: 9.5pt; margin-bottom: 4mm; }
 .allergens .legal, .allergens .ask { font-size: 9pt; line-height: 1.5; color: #5B5978; margin-bottom: 4mm; }
@@ -75,11 +81,16 @@ def page(lang, n, total, title, inner, cls=""):
     head = f'<h1>{e(title)}</h1><div class="rule"></div>' if title else ""
     return f'<section class="page {cls}"><div class="top">{LOGO}</div><div class="body">{head}{inner}</div>{foot}</section>'
 
-def allergen_page(lang):
+def allergen_page(lang, origins=True):
     li = "".join(f"<li><b>{k}</b><span>{e(a[{'it':0,'en':1,'ru':2}[lang]])}</span></li>" for k, a in enumerate(ALLERGENS, 1))
-    alg = f'''<p class="note">{e(ALLERGEN_NOTE[lang])}</p><p class="legal">{e(ALLERGEN_LEGAL[lang])}</p><ol>{li}</ol>
+    L = {'it':0,'en':1,'ru':2}[lang]
+    orig = "".join(f"<li><span>{e(a[L])}</span><span>{e(b[L])}</span></li>" for a, b in ORIGINS)
+    ob = f'<div class="origins"><h2>{e(ORIGIN_TITLE[lang])}</h2><ul>{orig}</ul></div>' if origins else ""
+    alg = f'''{ob}<p class="note">{e(ALLERGEN_NOTE[lang])}</p><p class="legal">{e(ALLERGEN_LEGAL[lang])}</p><ol>{li}</ol>
       <p class="ask">{e(ALLERGEN_ASK[lang])}</p><p class="thanks">{e(THANKS[lang])}</p>'''
-    return (ALLERGEN_TITLE[lang], alg, "allergens")
+    title = {"it": "Provenienze e allergeni", "en": "Origins and allergens", "ru": "Происхождение и аллергены"}[lang] if origins else ALLERGEN_TITLE[lang]
+    if origins: ob = ob.replace(f"<h2>{e(ORIGIN_TITLE[lang])}</h2>", "")
+    return (title, alg if not origins else alg.replace(f"<h2>{e(ORIGIN_TITLE[lang])}</h2>", ""), "allergens")
 
 def cover(lang, title, intro=True):
     extra = f'<p class="intro">{e(INTRO[lang])}</p><p class="tag">{e(TAGLINE[lang])}</p>' if intro else ""
@@ -105,7 +116,7 @@ def build_desserts(lang):
         for d, pairs in chunk:
             inner += f'<div class="dessert">{item_html(d, lang)}<p class="pair-label">{e(PAIRINGS[lang])}</p><div class="pair">{"".join(item_html(p, lang) for p in pairs)}</div></div>'
         pages.append((DESSERT_TITLE[lang], inner, ""))
-    pages.append(allergen_page(lang))
+    pages.append(allergen_page(lang, origins=False))
     return wrap(lang, pages)
 
 async def render():

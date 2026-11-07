@@ -245,3 +245,14 @@ def price(v, lang, unit=False):
     s = (f"{v:.2f}" if v != int(v) else str(int(v)))
     if lang != "en": s = s.replace(".", ",")
     return f"€ {s}" + (f" {EACH[lang]}" if unit else "")
+
+# ---- Origins (November 2026, from the restaurant) ----
+ORIGIN_TITLE = {"it": "Provenienze", "en": "Where our seafood comes from", "ru": "Происхождение морепродуктов"}
+ORIGINS = [
+ (("Ostriche", "Oysters", "Устрицы"), ("Francia", "France", "Франция")),
+ (("Branzino", "Sea bass", "Сибас"), ("Grecia / Sardegna", "Greece / Sardinia", "Греция / Сардиния")),
+ (("Cozze", "Mussels", "Мидии"), ("Italia", "Italy", "Италия")),
+ (("Astice", "Lobster", "Омар"), ("Canada", "Canada", "Канада")),
+ (("Gamberi", "Prawns", "Креветки"), ("Mazara del Vallo", "Mazara del Vallo, Sicily", "Мадзара-дель-Валло, Сицилия")),
+ (("Scampi", "Langoustines", "Лангустины"), ("Sicilia", "Sicily", "Сицилия")),
+]
